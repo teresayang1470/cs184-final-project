@@ -111,7 +111,8 @@
       
 <h1>Goals and Deliverables</h1>
 <h4>Planned Deliverables</h3>
-    <p>The stretch goal of our project is to expand upon the traditional specialized material point method implementation into a general material point method implementation that supports general soft body, hair soft body, hard body, and discrete particle self-collisions and collisions. However, if things do not go as planned due to the scope of our ambitions we will at very least deliver on one of the soft body types self-collisions and their subsequent hard body collision. This is either self-collisions of continuum soft hairs and hard bodies or self-collisions of continuum soft bodies and hard bodies. Ideally we’d like to both but if we are unable we will attempt to deliver upon one. We should at the very least create renders similar to either image <b>(i)</b>or <b>(iii)</b> below. We count successful renders of one of these types as a successful project measure as we accomplished realistic hair simulation and collision or realistic soft body simulation and collision using MPM. </p>
+    <p>The stretch goal of our project is to expand upon the traditional specialized material point method implementation into a general material point method implementation that supports general soft body, hair soft body, hard body, and discrete particle self-collisions and collisions. However, if things do not go as planned due to the scope of our ambitions or another technical challenge, we will at very least deliver on one of the soft body types self-collisions and their subsequent hard body collision. This is either self-collisions of continuum soft hairs and hard bodies or self-collisions of continuum soft bodies and hard bodies. Ideally we’d like to achieve both but if we are unable we will attempt to deliver upon one. We should at the very least create renders similar to either image <b>(i)</b>or <b>(iii)</b> below. We count successful renders of one of these types as a successful project measure, as we accomplish realistic hair simulation and collision or realistic soft body simulation and collision using hybrid MPM. In particular, the renders should avoid the artifacts caused by excessive frictional contact with volumetric materials (as noted by Han <i>et al.</i>) in the traditional MPM method. For instance, we should reject images that display erroneous collisions between hair strands and self-collisions, resulting in “clumping” from canonical MPM.
+ </p>
 
     <br>
     <div align="center">
@@ -139,7 +140,7 @@
 <br>
 
 <h4>Stretch Deliverables</h4>
-    <p>If all goes better as planned, we should have an umbrella material point method implementation that generally simulates: continuum soft hair, continuum general soft body, continuum rigid body, and discrete particle self-collisions, and collisions between each of the types. We would be able to create render similar to that of <b>(i), (ii), (iii), (iv)</b> above correctly and <b>(v)</b> below correctly as well.</p>
+    <p>If all goes better as planned, we should have an umbrella material point method implementation that generally simulates: continuum soft hair, continuum general soft body, continuum rigid body, and discrete particle self-collisions, and collisions between each of the types. We would be able to create renders similar to that of  <b>(i), (ii), (iii), (iv)</b> above correctly and <b>(v)</b> below correctly as well.</p>
     <p>If things go even better as planned we will try for a model that simulates soft hair and general soft body collisions (think hairy jello).</p>
     
     <br>
@@ -155,6 +156,16 @@
         </div>
     <br>
  
+<h4>Performance Evaluation</h4>
+<p>Currently, we plan to quantitatively evaluate the performance of the project using runtime benchmarks from the literature. In terms of metrics, we aim to achieve similar rendering times (measured in seconds/frame) as described in Han <i>et al</i>. For example, a hair tube rendering with traditional MPM took 156  seconds/frame; an identical rendering with hybrid MPM took approximately 55 seconds/frame - a significant speedup of roughly 3x. Although we acknowledge that it may not be possible to replicate these results precisely given limited computational power and resources, we still intend on achieving a similar performance and quality optimization between the two methods nonetheless.
+</p>
+
+<h4>Guiding Questions</h4>
+<p>Ultimately, the questions we wish to answer with respect to our analysis are concerned with the effectiveness and benefits of the hybrid MPM model. These questions include: “What performance gain is possible in our implementation of the hybrid model, as opposed to the traditional model?”, “To what extent can we replicate the effect of frictional sliding in the absence of artifacts?“, and “How well does our implementation handle the problem of two-way coupling with regard to traditional MPM particles such as snow, sand, or clothing?”
+
+</p>
+
+
 <h1>Schedule</h2>
     <div align="center">
         <table style="width=100%" border=2>
