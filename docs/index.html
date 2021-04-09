@@ -31,34 +31,15 @@
     <br>
 
 <h1>Summary</h2>
-        <p>A general Material Point Method implementation for simulating soft bodies, continuum rigid bodies, and discrete particles.
-        </p>
-        <p>A hybrid/type of MPM to simulate collisions and interactions between continuum soft bodies, continuum rigid bodies, and discrete particles. We would expand upon the MPM to more accurately simulate hair, skin, cloth, hard objects, sprinkles, snow, and sand and their interactions with one another.
-        </p>
+    <p>A general Material Point Method implementation for simulating continuum soft bodies, continuum rigid bodies, and discrete particles.</p>
+    <p>A hybrid/type of Material Point Method to simulate collisions and interactions between continuum soft bodies, continuum rigid bodies, and discrete particles. We would expand upon the material point method to more accurately simulate hair(soft body), skin(soft body self collision), cloth(soft body self collision), hard objects(rigid body), sprinkles, snow, and sand(discrete particles) and their collisions with one another.</p>
     <br>
 
 <h1>Problem Description</h2>
-        <p>Traditional MPM implementations have specialized extensions to simulate continuum soft bodies, continuum rigid bodies, and discrete particles on their own. These specialized implementations often struggle with simulating two way coupling interactions between the different types of objects. Each type along with its coupling interaction can be simulated with specialized modifications but many MPM implementations struggle to generally simulate all the necessary types of objects in one.</p>
-        <p>Thus, we will be attempting to make generalized modification to the MPM method in order to simulate continuum soft bodies, continuum rigid bodies, and discrete particles generically. It will also accurately simulate two way coupling interactions between the different types. We take a hybrid approach to the MPM in order to have an implementation that is more accurate and versatile in simulating the different types of objects and their interactions with one another.</p>
-        <br>
-        <br>
-        <div align="center">
-            <table style="width=100%">
-                <tr>
-                    <td align="middle">
-                    <img src="images/rapunzel.gif" width="250px" />
-                    <figcaption align="middle">placeholder text</figcaption>
-                    </td>
-                    <td align="middle">
-                    <img src="images/slime.gif" width="250px" />
-                    <figcaption align="middle">placeholder text</figcaption>
-                    </td>
-                </tr>
-            </table>
-        </div>
-    <br>
-        
-<h1>Goals and Deliverables</h2>
+    <p>Traditional MPM implementations have specialized extensions to simulate continuum soft bodies, continuum rigid bodies, and discrete particles on their own. These specialized implementations often struggle with simulating two way coupling interactions between the different types of objects correctly. Each type along with its coupling interaction can be simulated with specialized modifications but many MPM implementations struggle to generally simulate all the necessary types of objects in one.</p>
+
+    <p>Thus, we will be attempting to make generalized modification to the MPM method in order to simulate continuum soft bodies, continuum rigid bodies, and discrete particles generically. It will also accurately simulate two way coupling interactions between the different types. We take a hybrid approach to the MPM in order to have an implementation that is more accurate and versatile in simulating the different types of objects and their interactions with one another. </p>
+       
     <p>The material point method is a hybrid Eulerian/Lagrangian technique that uses grids and particles to simulate continuum bodies and discrete materials. A brief step through of a traditional material point method algorithm is below along with an illustration<b>(i)</b> :</p>
     <ul>
         <li>Initialization
@@ -127,28 +108,97 @@
         </table>
     </div>
     <br>
+      
+<h1>Goals and Deliverables</h1>
+<h4>Planned Deliverables</h3>
+    <p>The stretch goal of our project is to expand upon the traditional specialized material point method implementation into a general material point method implementation that supports general soft body, hair soft body, hard body, and discrete particle self-collisions and collisions. However, if things do not go as planned due to the scope of our ambitions we will at very least deliver on one of the soft body types self-collisions and their subsequent hard body collision. This is either self-collisions of continuum soft hairs and hard bodies or self-collisions of continuum soft bodies and hard bodies. Ideally we’d like to both but if we are unable we will attempt to deliver upon one. We should at the very least create renders similar to either image <b>(i)</b>or <b>(iii)</b> below. We count successful renders of one of these types as a successful project measure as we accomplished realistic hair simulation and collision or realistic soft body simulation and collision using MPM. </p>
 
-    
-<h1>Planned Deliverables</h3>
-    <p>You should break this section into two parts: (1) what you plan to deliver, and (2) what you hope to deliver. In (1), describe what you believe you must accomplish to have a successful project and achieve the grade you expect (i.e. your baseline plan -- planning for some unexpected problems would make sense). </p>
-
-<h1>Stretch Deliverables</h3>
-    <p>In (2), describe what you hope to achieve if things go well and you get ahead of schedule (your aspirational plan).</p>
     <br>
+    <div align="center">
+        <table style="width=100%">
+            <tr>
+                <td align="middle">
+                <img src="images/hair.gif" width="500px" />
+                <figcaption align="middle"><b>(i)</b> Self-collision of continuum soft hair and collision coupling between continuum soft hair and hard bodies.</figcaption>
+                </td>
+                <td align="middle">
+                <img src="images/hair_part.gif" width="500px" />
+                <figcaption align="middle"><b>(ii)</b> Self-collision of continuum soft hair and collision coupling between continuum soft hair and discrete particles.</figcaption>
+                </td>
+                <td align="middle">
+                <img src="images/soft.gif" width="500px" />
+                <figcaption align="middle"><b>(iii)</b> Self-collision of soft bodies and collision coupling between continuum soft bodies and hard bodies.</figcaption>
+                </td>
+                <td align="middle">
+                <img src="images/soft_part.gif" width="500px" />
+                <figcaption align="middle"><b>(iv)</b> Self-collision of soft bodies and collision coupling between continuum soft bodies and  discrete particles.</figcaption>
+                </td>
+            </tr>
+        </table>
+    </div>
+<br>
+
+<h4>Stretch Deliverables</h4>
+    <p>If all goes better as planned, we should have an umbrella material point method implementation that generally simulates: continuum soft hair, continuum general soft body, continuum rigid body, and discrete particle self-collisions, and collisions between each of the types. We would be able to create render similar to that of <b>(i), (ii), (iii), (iv)</b> above correctly and <b>(v)</b> below correctly as well.</p>
+    <p>If things go even better as planned we will try for a model that simulates soft hair and general soft body collisions (think hairy jello).</p>
     
+    <br>
+        <div align="center">
+            <table style="width=100%">
+                <tr>
+                    <td align="middle">
+                    <img src="images/goal.gif" width="1000px" />
+                    <figcaption align="middle"><b>(v)</b> Collision coupling between continuum soft bodies, continuum rigid bodies, and discrete particles.</figcaption>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    <br>
+ 
 <h1>Schedule</h2>
     <div align="center">
-        <table style="width=100%" border=1>
+        <table style="width=100%" border=2>
             <tr>
                 <th>Week</th>
                 <th>Tasks</th>
               </tr>
             <tr>
                 <td align="middle">
-                <p> 4/5/21 </p>
+                <p> 4/12/21 </p>
                 </td>
                 <td align="middle">
-                <p> In this section you should organize and plan the tasks and subtasks that your team will execute. Since presentations are ~4 weeks from the due-date of the proposal, you should include a set of tasks for every week. </p>
+                <p> Read through papers
+                    Choose a Material Point Method optimization method (e.g. Lagrangian hybrid, Moving Least Squares) Familiarize ourselves with existing code repositories Familiarize ourselves with Mitsuba renderer</p>
+                </td>
+            </tr>
+            <tr>
+                <td align="middle">
+                <p> 4/19/21 </p>
+                </td>
+                <td align="middle">
+                <p> Work on implementing standard MPM
+                    Make sure what we’re doing works well with Mitsuba renderer</p>
+                </td>
+            </tr>
+            <tr>
+                <td align="middle">
+                <p> 4/26/21 </p>
+                </td>
+                <td align="middle">
+                <p> Finish Material Point Method
+                    Begin incorporating optimization of choice                    
+                </p>
+                </td>
+            </tr>
+            <tr>
+                <td align="middle">
+                <p> 5/3/21 </p>
+                </td>
+                <td align="middle">
+                <p> Finish optimization
+                    Inevitable debugging
+                    Presentation prep
+                    </p>
                 </td>
             </tr>
         </table>
@@ -157,9 +207,31 @@
     
 <h1>Resources</h2>
     <ul>
-        <li>List what resources, e.g. books, papers and/or online resources that are references for your project. </li>
-        <li>List the computing platform, hardware and software resources that you will use for your project.</li>
-        <li>You have a wide latitude here to use what you have access to, but be aware that you will have to support and trouble-shoot on your platform yourselves. If you are starting from an existing piece of code or system, describe and provide a pointer to it here.</li>
+        <li>Web
+            <ul>
+                <li><a href="https://en.wikipedia.org/wiki/Material_point_method">Material point method</a></li>
+            </ul>
+        </li>
+        <li>Papers
+            <ul>
+                <li><a href="https://www.math.ucla.edu/~jteran/papers/HGGWJT19.pdf">A Hybrid Material Point Method for Frictional Contact with Diverse Materials</a></li>
+                <li><a href="https://escholarship.org/content/qt0379b41t/qt0379b41t.pdf?t=qaog8c&v=lg">The Material Point Method for Solid and Fluid Simulation</a></li>
+                <li><a href="https://www.math.ucla.edu/~jteran/papers/JGT17.pdf">Anisotropic Elastoplasticity for Cloth, Knit and Hair Frictional Contact</a></li>
+                <li><a href="https://yzhu.io/publication/mpmmls2018siggraph/paper.pdf">A Moving Least Squares Material Point Method with Displacement Discontinuity and Two-Way Rigid Body Coupling</a></li>
+            </ul>
+        </li>
+        <li>Existing Code
+            <ul>
+                <li><a href="https://github.com/yuanming-hu/taichi_mpm">MPM Solver Base</a></li>
+            </ul>
+        </li>
+        <li>Renderer
+            <ul>
+                <li><a href="https://www.mitsuba-renderer.org/">Mitsuba </a>(used by students from previous semester who worked on hair-related projects)</li>
+                <li><a href="https://github.com/tunabrain/tungsten">Tungsten</a> (used by students from previous semester who worked on hair-related projects)</li>
+            </ul>
+        </li>
+
     </ul>
     <br>
     
