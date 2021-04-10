@@ -31,16 +31,16 @@
     <br>
 
 <h1>Summary</h2>
-    <p>A general Material Point Method implementation for simulating continuum soft bodies, continuum rigid bodies, and discrete particles.</p>
-    <p>A hybrid/type of Material Point Method to simulate collisions and interactions between continuum soft bodies, continuum rigid bodies, and discrete particles. We would expand upon the material point method to more accurately simulate hair(soft body), skin(soft body self collision), cloth(soft body self collision), hard objects(rigid body), sprinkles, snow, and sand(discrete particles) and their collisions with one another.</p>
+    <p><b>A general Material Point Method implementation for simulating continuum soft bodies, continuum rigid bodies, and discrete particles.</b></p>
+    <p>The traditional material point method (MPM) is a numerical technique for simulating interactions between solids, liquids, gases, or any continuum material, described by a small number of Lagrangian elements. Both traditional and recent MPM approaches struggle to accurately simulate multiple different materials together. We want to expand upon the traditional MPM to more accurately simulate soft bodies (i.e. hair, skin, cloth), rigid bodies, discrete particles (i.e.  sprinkles, snow, sand), and their collisions with one another. While building upon our cloth simulations in project 4, we will create a hybrid MPM model that utilizes a Lagrangian mesh for internal force computation, Eulerian mesh for self collision, and coupling with external materials.</p>
     <br>
 
 <h1>Problem Description</h2>
-    <p>Traditional MPM implementations have specialized extensions to simulate continuum soft bodies, continuum rigid bodies, and discrete particles on their own. These specialized implementations often struggle with simulating two way coupling interactions between the different types of objects correctly. Each type along with its coupling interaction can be simulated with specialized modifications but many MPM implementations struggle to generally simulate all the necessary types of objects in one.</p>
+    <p>Traditional MPM implementations have specialized extensions to simulate continuum soft bodies, continuum rigid bodies, and discrete particles on their own. These specialized implementations often struggle with simulating two way coupling interactions between the different types of objects correctly. Each continuum material along with its coupling interaction can be simulated with specialized modifications, but many recent MPM implementations struggle to generally simulate all the necessary types of objects together as they coarsen the degrees of freedom of the Lagrangian mesh, which leads to visual artifacts.</p>
 
-    <p>Thus, we will be attempting to make generalized modification to the MPM method in order to simulate continuum soft bodies, continuum rigid bodies, and discrete particles generically. It will also accurately simulate two way coupling interactions between the different types. We take a hybrid approach to the MPM in order to have an implementation that is more accurate and versatile in simulating the different types of objects and their interactions with one another. </p>
+    <p>Thus, we will be attempting to make a modification to the MPM method in order to simulate continuum soft bodies, continuum rigid bodies, and discrete particles generically. The result will be more accurate and versatile in simulating the different types of objects and their interactions with one another. It will also more accurately simulate two way coupling interactions between the different types of materials.</p>
        
-    <p>The material point method is a hybrid Eulerian/Lagrangian technique that uses grids and particles to simulate continuum bodies and discrete materials. A brief step through of a traditional material point method algorithm is below along with an illustration<b>(i)</b> :</p>
+    <p>We will approach this issue by creating a hybrid Eulerian/Lagrangian MPM technique that uses grids and particles to simulate continuum bodies and discrete materials. This hybrid approach preserves Lagrangian degrees of freedom while still allowing for realistic coupling with materials. Since we have a basis for cloth simulations, we can build upon project 4 and incorporate this hybrid approach to generalize to all continuum materials. A brief step through of a traditional material point method algorithm is below along with an illustration<b>(i)</b> :</p>
     <ul>
         <li>Initialization
             <ul>
@@ -108,8 +108,11 @@
         </table>
     </div>
     <br>
-      
-<h1>Goals and Deliverables</h1>
+    <p>The challenging parts of this problem will be to deliver on all these different continuum body interactions within the given timeframe. We also have a lot of work to do to familiarize ourselves with existing MPM implementations and incorporate our project 4 code smoothly.</p>
+    <p>This is an important problem to solve to create more realistic elastic object simulations, and it can have many applications such as in video games.</p>
+    <br>
+
+    <h1>Goals and Deliverables</h1>
 <h4>Planned Deliverables</h3>
     <p>The stretch goal of our project is to expand upon the traditional specialized material point method implementation into a general material point method implementation that supports general soft body, hair soft body, hard body, and discrete particle self-collisions and collisions. However, if things do not go as planned due to the scope of our ambitions or another technical challenge, we will at very least deliver on one of the soft body types self-collisions and their subsequent hard body collision. This is either self-collisions of continuum soft hairs and hard bodies or self-collisions of continuum soft bodies and hard bodies. Ideally we’d like to achieve both but if we are unable we will attempt to deliver upon one. We should at the very least create renders similar to either image <b>(i)</b>or <b>(iii)</b> below. We count successful renders of one of these types as a successful project measure, as we accomplish realistic hair simulation and collision or realistic soft body simulation and collision using hybrid MPM. In particular, the renders should avoid the artifacts caused by excessive frictional contact with volumetric materials (as noted by Han <i>et al.</i>) in the traditional MPM method. For instance, we should reject images that display erroneous collisions between hair strands and self-collisions, resulting in “clumping” from canonical MPM.
  </p>
