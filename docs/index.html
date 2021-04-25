@@ -24,100 +24,28 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
 <body>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+      <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="proposal.html">Proposal</a>
+          </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Milestone Report</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Final Report</a>
+        </li>
+      </ul>
+    </nav>
+<br>
 <div>
-<h1>Project Proposal: Material Point Method</h1>
+<h1>Milestone Report: Material Point Method</h1>
     <h2>CS184 - Spring 2021</h1>
         <h4>Teresa Yang, Stephen Lin, Nikki Suppala, and Brandon Illescas</h4>
     <br>
 
-<h1>Summary</h2>
-    <p><b>A general Material Point Method implementation for simulating continuum soft bodies, continuum rigid bodies, and discrete particles.</b></p>
-    <p>The traditional material point method (MPM) is a numerical technique for simulating interactions between solids, liquids, gases, or any continuum material, described by a small number of Lagrangian elements. Both traditional and recent MPM approaches struggle to accurately simulate multiple different materials together. We want to expand upon the traditional MPM to more accurately simulate soft bodies (i.e. hair, skin, cloth), rigid bodies, discrete particles (i.e.  sprinkles, snow, sand), and their collisions with one another. While building upon our cloth simulations in project 4, we will create a hybrid MPM model that utilizes a Lagrangian mesh for internal force computation, Eulerian mesh for self collision, and coupling with external materials.</p>
-    <br>
-
-<h1>Problem Description</h2>
-    <p>Traditional MPM implementations have specialized extensions to simulate continuum soft bodies, continuum rigid bodies, and discrete particles on their own. These specialized implementations often struggle with simulating two way coupling interactions between the different types of objects correctly. Each continuum material along with its coupling interaction can be simulated with specialized modifications, but many recent MPM implementations struggle to generally simulate all the necessary types of objects together as they coarsen the degrees of freedom of the Lagrangian mesh, which leads to visual artifacts.</p>
-
-    <p>Thus, we will be attempting to make a modification to the MPM method in order to simulate continuum soft bodies, continuum rigid bodies, and discrete particles generically. The result will be more accurate and versatile in simulating the different types of objects and their interactions with one another. It will also more accurately simulate two way coupling interactions between the different types of materials.</p>
-       
-    <p>We will approach this issue by creating a hybrid Eulerian/Lagrangian MPM technique that uses grids and particles to simulate continuum bodies and discrete materials. This hybrid approach preserves Lagrangian degrees of freedom while still allowing for realistic coupling with materials. Since we have a basis for cloth simulations, we can build upon project 4 and incorporate this hybrid approach to generalize to all continuum materials. A brief step through of a traditional material point method algorithm is below along with an illustration<b>(i)</b> :</p>
-    <ul>
-        <li>Initialization
-            <ul>
-                <li><b>1. Initialization of grid and material points.</b>
-                <ul>
-                    <li>a. A geometry is discretized into a collection of material points[<img src="images/eq/mp.svg" style="vertical-align: -.30ex; width:2.542ex; height:1.343ex;">], each with its own material properties and initial conditions</li>
-                    <li>b. A geometry is discretized into a collection of material grid nodes[<img src="images/eq/node.svg" style="vertical-align: -0.5ex; width:4.542ex; height:2.343ex;">], made to cover an area large enough to fill the expected extent of the computational domain needed for the simulation.</li>
-                </ul>
-            </ul>
-            <br>
-        </li>
-        <li>Time integration Loop
-            <ul>
-                <li><b>1. Material point quantities are extrapolated to grid nodes.</b>
-                    <ul>
-                    <li>a. Material point mass [<img src="images/eq/m_mp.svg" style="vertical-align: -1.005ex; width:4.542ex; height:2.343ex;">], momenta [<img src="images/eq/vec_P_mp.svg" style="vertical-align: -1.005ex; width:3.994ex; height:4.343ex;">] stresses [<img src="images/eq/sigma_mp.svg" style="vertical-align: -1.405ex; width:3.994ex; height:4.343ex;">], and external forces [<img src="images/eq/vec_b.svg" style="vertical-align: -.5ex; width:2.096ex; height:3.176ex;">] are extrapolated to the nodes at the corners of the cells within which the material points reside. Done using standard linear shape functions[<img src="images/eq/N_nd-mp.svg" style="vertical-align: vertical-align: -1.005ex; width:7.493ex; height:2.843ex;">] 
-                    </li>
-                    <li>b. The grid uses the material point values to create a sum of masses [<img src="images/eq/m_node.svg" style="vertical-align: -0.671ex; width:5.896ex; height:2.509ex;">]  , velocities [<img src="images/eq/V_node.svg" style="vertical-align: -0.671ex; width:4.997ex; height:4.009ex;">], internal and external force vectors [<img src="images/eq/vec_F_in_node.svg" style="vertical-align: -1.005ex; width:7.21ex; height:4.676ex;">,<img src="images/eq/vec_F_ext_node.svg" style="vertical-align: -1.005ex; width:7.455ex; height:4.676ex;">] for the nodes:
-                    <br><br>    
-                    <img src="images/eq/M_node_equal _sum.svg" style="vertical-align: -3.171ex; width:25.933ex; height:5.676ex;"> <img src="images/eq/v_node_sum.svg" style="vertical-align: -3.171ex; width:60.766ex; height:6.509ex;">
-                    <br><br>    
-                    <img src="images/eq/F_int_sum.svg" style="vertical-align: -3.171ex; width:30.471ex; height:6.843ex;">  <img src="images/eq/F_ext_sum.svg" style="vertical-align: -3.171ex; width:40.044ex; height:6.843ex;">
-                    <br><br>  
-                </ul>
-                <li><b>2. Equations of motion are solved on the grid.</b>
-                    <ul>
-                        <li>a. Newton's 2nd Law is solved to obtain the nodal acceleration [<img src="images/eq/A_node.svg" style="vertical-align: -0.671ex; width:5.385ex; height:4.009ex;">]
-                            <br><br>    
-                            <img src="images/eq/A_node_calc.svg" style="vertical-align: -2.338ex; width:28.409ex; height:9.509ex;">
-                        </li>
-                        <li>b. New nodal velocities are found [<img src="images/eq/new_V_node.svg" style="vertical-align: -0.671ex; width:4.997ex; height:4.509ex;">]
-                            <br><br>    
-                            <img src="images/eq/V_node_calc.svg" style="vertical-align: -0.671ex; width:23.45ex; height:4.509ex;">
-                            <br><br>  
-                        </li>
-                    </ul>
-                </li>
-                <li><b>3. Derivative terms are extrapolated back to material points.</b>
-                    <ul>
-                        <li>a. Material point acceleration [<img src="images/eq/a_mp.svg" style="vertical-align: -1.005ex; width:3.732ex; height:3.676ex;">] and strain rate[<img src="images/eq/e_mp.svg" style="vertical-align: -1.005ex; width:3.858ex; height:3.509ex;">]are extrapolated from the surrounding nodes using the standard linear shape function[<img src="images/eq/N_nd-mp.svg" style="vertical-align: -1.005ex; width:7.493ex; height:2.843ex;">].
-                            <br><br>    
-                            <img src="images/eq/a_mp_solved.svg" style="vertical-align: -3.005ex; width:24.611ex; height:6.343ex;"> <img src="images/eq/e_mp_solved.svg" style="vertical-align: -3.005ex; width:80.611ex; height:6.343ex;">
-                            <br><br>   
-                        </li>
-                        <li>b. The material points: positions, velocities, strains, stresses etc. are then updated with these rates.</li>
-                    </ul>
-                    <br>
-                </li>
-                <li><b>4. Resetting of grid and loop.</b>
-                    <ul>
-                    Now that the material points are fully updated at the next time step, the grid is reset to allowing for the next time step to begin.
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
-    <div align="center">
-        <table style="width=100%">
-            <tr>
-                <td align="middle">
-                <img src="images/mpm_algorithm.png" width="800px" />
-                <figcaption align="middle"><b>(i)</b> Illustration of the MPM algorithm </figcaption>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <br>
-    <p>The challenging parts of this problem will be to deliver on all these different continuum body interactions within the given timeframe. We also have a lot of work to do to familiarize ourselves with existing MPM implementations and incorporate our project 4 code smoothly.</p>
-    <p>This is an important problem to solve to create more realistic elastic object simulations, and it can have many applications such as in video games.</p>
-    <br>
-
-    <h1>Goals and Deliverables</h1>
-<h4>Planned Deliverables</h3>
-    <p>The stretch goal of our project is to expand upon the traditional specialized material point method implementation into a general material point method implementation that supports general soft body, hair soft body, hard body, and discrete particle self-collisions and collisions. However, if things do not go as planned due to the scope of our ambitions or another technical challenge, we will at very least deliver on one of the soft body types self-collisions and their subsequent hard body collision. This is either self-collisions of continuum soft hairs and hard bodies or self-collisions of continuum soft bodies and hard bodies. Ideally we’d like to achieve both but if we are unable we will attempt to deliver upon one. We should at the very least create renders similar to either image <b>(i)</b>or <b>(iii)</b> below. We count successful renders of one of these types as a successful project measure, as we accomplish realistic hair simulation and collision or realistic soft body simulation and collision using hybrid MPM. In particular, the renders should avoid the artifacts caused by excessive frictional contact with volumetric materials (as noted by Han <i>et al.</i>) in the traditional MPM method. For instance, we should reject images that display erroneous collisions between hair strands and self-collisions, resulting in “clumping” from canonical MPM.
- </p>
-
-    <br>
+<h2>Preliminary Results</h2>
+    <p>Results so far:</p>
     <div align="center">
         <table style="width=100%">
             <tr>
@@ -142,36 +70,13 @@
             </tr>
         </table>
     </div>
-<br>
-
-<h4>Stretch Deliverables</h4>
-    <p>If all goes better as planned, we should have an umbrella material point method implementation that generally simulates: continuum soft hair, continuum general soft body, continuum rigid body, and discrete particle self-collisions, and collisions between each of the types. We would be able to create renders similar to that of  <b>(i), (ii), (iii), (iv)</b> above correctly and <b>(v)</b> below correctly as well.</p>
-    <p>If things go even better as planned we will try for a model that simulates soft hair and general soft body collisions (think hairy jello).</p>
-    
     <br>
-        <div align="center">
-            <table style="width=100%">
-                <tr>
-                    <td align="middle">
-                    <img src="images/goal.gif" width="1000px" />
-                    <figcaption align="middle"><b>(v)</b> Collision coupling between continuum soft bodies, continuum rigid bodies, and discrete particles.</figcaption>
-                    </td>
-                </tr>
-            </table>
-        </div>
+
+<h2>Current Progress</h2>
+    <p>Reflect on progress relative to your plan.</p>
     <br>
- 
-<h4>Performance Evaluation</h4>
-<p>Currently, we plan to quantitatively evaluate the performance of the project using runtime benchmarks from the literature. In terms of metrics, we aim to achieve similar rendering times (measured in seconds/frame) as described in Han <i>et al</i>. For example, a hair tube rendering with traditional MPM took 156  seconds/frame; an identical rendering with hybrid MPM took approximately 55 seconds/frame - a significant speedup of roughly 3x. Although we acknowledge that it may not be possible to replicate these results precisely given limited computational power and resources, we still intend on achieving a similar performance and quality optimization between the two methods nonetheless.
-</p>
 
-<h4>Guiding Questions</h4>
-<p>Ultimately, the questions we wish to answer with respect to our analysis are concerned with the effectiveness and benefits of the hybrid MPM model. These questions include: “What performance gain is possible in our implementation of the hybrid model, as opposed to the traditional model?”, “To what extent can we replicate the effect of frictional sliding in the absence of artifacts?“, and “How well does our implementation handle the problem of two-way coupling with regard to traditional MPM particles such as snow, sand, or clothing?”
-
-</p>
-
-
-<h1>Schedule</h2>
+<h2>Updated Workplan</h2>
     <div align="center">
         <table style="width=100%" border=2>
             <tr>
@@ -220,37 +125,6 @@
         </table>
     </div>
     <br>
-    
-<h1>Resources</h2>
-    <ul>
-        <li>Web
-            <ul>
-                <li><a href="https://en.wikipedia.org/wiki/Material_point_method">Material point method</a></li>
-            </ul>
-        </li>
-        <li>Papers
-            <ul>
-                <li><a href="https://www.math.ucla.edu/~jteran/papers/HGGWJT19.pdf">A Hybrid Material Point Method for Frictional Contact with Diverse Materials</a></li>
-                <li><a href="https://escholarship.org/content/qt0379b41t/qt0379b41t.pdf?t=qaog8c&v=lg">The Material Point Method for Solid and Fluid Simulation</a></li>
-                <li><a href="https://www.math.ucla.edu/~jteran/papers/JGT17.pdf">Anisotropic Elastoplasticity for Cloth, Knit and Hair Frictional Contact</a></li>
-                <li><a href="https://yzhu.io/publication/mpmmls2018siggraph/paper.pdf">A Moving Least Squares Material Point Method with Displacement Discontinuity and Two-Way Rigid Body Coupling</a></li>
-            </ul>
-        </li>
-        <li>Existing Code
-            <ul>
-                <li><a href="https://github.com/yuanming-hu/taichi_mpm">MPM Solver Base</a></li>
-            </ul>
-        </li>
-        <li>Renderer
-            <ul>
-                <li><a href="https://www.mitsuba-renderer.org/">Mitsuba </a>(used by students from previous semester who worked on hair-related projects)</li>
-                <li><a href="https://github.com/tunabrain/tungsten">Tungsten</a> (used by students from previous semester who worked on hair-related projects)</li>
-            </ul>
-        </li>
-
-    </ul>
-    <br>
-    
 </div>
 </body>
 </html>
