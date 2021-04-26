@@ -3,6 +3,20 @@
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <link href="https://fonts.googleapis.com/css?family=Inter|Montserrat" rel="stylesheet">
+<!-- Math notation -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+    
+<script type="text/javascript"
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
 <style>
   body {
     padding: 100px;
@@ -77,6 +91,19 @@
 
 <h2>Current Progress</h2>
     <p>Reflect on progress relative to your plan.</p>
+So far, we have been focusing on exploring the Taichi programming language as a means of implementing hybrid Lagrangian MPM. Taichi is a Python-based programming language optimized for computer graphics, using Python as a framework. The engine currently includes a generic MPM solver, which we hope to modify in accordance with our project proposal. In addition to the preliminary renders displayed above, we have learned about the concepts involved in both traditional MPM and the new hybrid model. For example, from reading code and literature, we discovered the effect of various constants in terms of the physical properties. 
+<br>
+Young’s modulus ($E$) measures tensile elasticity and determines how susceptible a body is to deformation along a given axis when opposing forces are applied along the axis. Lamé’s second parameter ($\mu$) describes a similar measure of tendency to shear (along axis coplanar to the applied force) stress. Finally, the first Lamé parameter ($\lambda$) is used to compute the Cauchy stress tensor ($\sigma$), which gives the stress state for a uniformly stressed body In $\texttt{mpm_solver.py}$, these parameters are varied across different materials to simulate various hard and soft bodies; since the constants affect the stresses and deformation, they are also used compute momentum changes and therefore affect the overall simulation.
+
+$$\lambda = \frac{E \nu}{(1 + \nu)(1 - 2 \nu)}$$
+    $$\mu = \frac{E}{2(1 + \nu)}$$
+    $$\sigma = 2 \mu \epsilon + \lambda \text{tr}(\epsilon)I$$
+
+Here, $\text{tr}$ is the trace function, and $\epsilon$ is the strain tensor.
+
+<br>
+Initially, we struggled with finding the correspondence between the paper from Han et al. due to our unfamiliarity with the mathematical background in addition to the specifics of the Taichi programming language. There were also many other technical difficulties regarding the installation of dependencies and other related libraries. After these initial roadblocks however, we were able to better understand how to use built-in Taichi constructs to replicate some of the mathematics and physics described in the paper.
+
     <br>
 
 <h2>Updated Workplan</h2>
