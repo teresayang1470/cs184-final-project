@@ -63,6 +63,7 @@
 <br>
 <h2>Preliminary Results</h2>
     <p>Using the Taichi programming language, which is discussed further in the “Current Progress” section below, we have been able to render both rigid and elastic materials; we have also rendered specific materials such as snow, water, and sand. The majority of our work was in 2D, although we have begun taking a look at how 3D renders will work with Taichi.</p>
+    <p>The following renders were made using the traditional Material Point Method. That is, we have not yet implemented either of the Moving Least Squares or Lagrangian optimizations; this will be the next steps for us.</p>
     <div align="center">
         <table style="width=100%">
             <tr  style="vertical-align:top">
@@ -132,47 +133,24 @@ $$\lambda = \frac{E \nu}{(1 + \nu)(1 - 2 \nu)}$$
 <h2>Updated Workplan</h2>
     <div align="center">
         <table style="width=100%" border=2>
-            <tr>
+            <tr align="middle">
                 <th>Week</th>
                 <th>Tasks</th>
               </tr>
             <tr>
                 <td align="middle">
-                <p> 4/12/21 </p>
-                </td>
-                <td align="middle">
-                <p> Read through papers
-                    Choose a Material Point Method optimization method (e.g. Lagrangian hybrid, Moving Least Squares) Familiarize ourselves with existing code repositories Familiarize ourselves with Mitsuba renderer</p>
-                </td>
-            </tr>
-            <tr>
-                <td align="middle">
-                <p> 4/19/21 </p>
-                </td>
-                <td align="middle">
-                <p> Work on implementing standard MPM
-                    Make sure what we’re doing works well with Mitsuba renderer</p>
-                </td>
-            </tr>
-            <tr>
-                <td align="middle">
                 <p> 4/26/21 </p>
                 </td>
-                <td align="middle">
-                <p> Finish Material Point Method
-                    Begin incorporating optimization of choice                    
-                </p>
+                <td align="middle" style="width: 75%">
+                <p> Incorporate Moving Least Squares optimization into current MPM solver</p>
                 </td>
             </tr>
             <tr>
                 <td align="middle">
                 <p> 5/3/21 </p>
                 </td>
-                <td align="middle">
-                <p> Finish optimization
-                    Inevitable debugging
-                    Presentation prep
-                    </p>
+                <td align="middle" style="width: 75%">
+                <p>Debugging; prepare for presentation</p>
                 </td>
             </tr>
         </table>
