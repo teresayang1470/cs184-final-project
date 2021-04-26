@@ -62,27 +62,52 @@
 <br>
 <br>
 <h2>Preliminary Results</h2>
-    <p>Results so far:</p>
+    <p>Using the Taichi programming language, which is discussed further in the “Current Progress” section below, we have been able to render both rigid and elastic materials; we have also rendered specific materials such as snow, water, and sand. The majority of our work was in 2D, although we have begun taking a look at how 3D renders will work with Taichi.</p>
     <div align="center">
         <table style="width=100%">
-            <tr>
+            <tr  style="vertical-align:top">
                 <td align="middle">
-                <img src="images/hair.gif" width="500px" />
-                <figcaption align="middle"><b>(i)</b> Self-collision of continuum soft hair and collision coupling between continuum soft hair and hard bodies.</figcaption>
+                <img src="../mpm_tachi_engine/demo/breaking_snowballs_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt">Two snowballs colliding.</figcaption>
+                </td>
+                <td align="middle" >
+                <img src="../mpm_tachi_engine/demo/collapsing_snowball_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt">A snowball hitting the ground.
+                </figcaption>
+                <td align="middle">
+                <img src="../mpm_tachi_engine/demo/cube_horizontal_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt">A rigid cube (yellow) and elastic cube (red) colliding.</figcaption>
                 </td>
                 <td align="middle">
-                <img src="images/hair_part.gif" width="500px" />
-                <figcaption align="middle"><b>(ii)</b> Self-collision of continuum soft hair and collision coupling between continuum soft hair and discrete particles.</figcaption>
+                <img src="../mpm_tachi_engine/demo/cube_vertical_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt"> An elastic cube (red) bouncing off a rigid cube (yellow).</figcaption>
+                </td>
+                <td align="middle">
+                <img src="../mpm_tachi_engine/demo/ellipsoids_in_fluid_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt">Two elastic balls crashing into and floating in a body of water.</figcaption>
+                </td>
             </tr>
-            <tr>
+            <tr  style="vertical-align:top">
                 </td>
                 <td align="middle">
-                <img src="images/soft.gif" width="500px" />
-                <figcaption align="middle"><b>(iii)</b> Self-collision of soft bodies and collision coupling between continuum soft bodies and hard bodies.</figcaption>
+                <img src="../mpm_tachi_engine/demo/liquid_softblocks_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt">Elastic blocks (red) interacting with water (yellow, teal) and snow (white).</figcaption>
                 </td>
                 <td align="middle">
-                <img src="images/soft_part.gif" width="500px" />
-                <figcaption align="middle"><b>(iv)</b> Self-collision of soft bodies and collision coupling between continuum soft bodies and  discrete particles.</figcaption>
+                <img src="../mpm_tachi_engine/demo/slanted_floor_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt">The same blocks, water, and snow, but on a tilted surface.</figcaption>
+                </td>
+                <td align="middle">
+                <img src="../mpm_tachi_engine/demo/mud_snow_soft_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt">Snow (white), sand (yellow), and elastic block (red) interacting.</figcaption>
+                </td>
+                <td align="middle">
+                <img src="../mpm_tachi_engine/demo/snow_ball_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt">Rigid ball (yellow) and elastic ball (red) interacting with snow (white).</figcaption>
+                </td>
+                <td align="middle">
+                <img src="../mpm_tachi_engine/demo/snow_rigid_3d_render/video.gif" width="250px" />
+                <figcaption align="middle" style="font-size: 10pt">3D render of waterfalls.</figcaption>
                 </td>
             </tr>
         </table>
