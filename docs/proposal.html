@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="shortcut icon" href="images/mpm.ico" />
 <link href="https://fonts.googleapis.com/css?family=Inter|Montserrat" rel="stylesheet">
 <style>
   body {
@@ -20,7 +21,7 @@
 
   }
 </style>
-<title>Material Point Method</title>
+<title>MPM Proposal</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
 <body>
@@ -53,8 +54,9 @@
     <p>Traditional MPM implementations have specialized extensions to simulate continuum soft bodies, continuum rigid bodies, and discrete particles on their own. These specialized implementations often struggle with simulating two way coupling interactions between the different types of objects correctly. Each continuum material along with its coupling interaction can be simulated with specialized modifications, but many recent MPM implementations struggle to generally simulate all the necessary types of objects together as they coarsen the degrees of freedom of the Lagrangian mesh, which leads to visual artifacts.</p>
 
     <p>Thus, we will be attempting to make a modification to the MPM method in order to simulate continuum soft bodies, continuum rigid bodies, and discrete particles generically. The result will be more accurate and versatile in simulating the different types of objects and their interactions with one another. It will also more accurately simulate two way coupling interactions between the different types of materials.</p>
-       
-    <p>We will approach this issue by creating a hybrid Eulerian/Lagrangian MPM technique that uses grids and particles to simulate continuum bodies and discrete materials. This hybrid approach preserves Lagrangian degrees of freedom while still allowing for realistic coupling with materials. Since we have a basis for cloth simulations, we can build upon project 4 and incorporate this hybrid approach to generalize to all continuum materials. A brief step through of a traditional material point method algorithm is below along with an illustration<b>(i)</b> :</p>
+    <h2><a id="MPM"></a></h2>
+    <p>We will approach this issue by creating a hybrid Eulerian/Lagrangian MPM technique that uses grids and particles to simulate continuum bodies and discrete materials. This hybrid approach preserves Lagrangian degrees of freedom while still allowing for realistic coupling with materials. Since we have a basis for cloth simulations, we can build upon project 4 and incorporate this hybrid approach to generalize to all continuum materials. A brief step through of a traditional material point method algorithm is below along with an illustration <b>(i)</b> :</p>
+  
     <ul>
         <li>Initialization
             <ul>
