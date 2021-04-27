@@ -58,64 +58,59 @@
         <h4>Teresa Yang, Stephen Lin, Nikki Suppala, and Brandon Illescas</h4>
         <br>
 
+        <br>
+	    <center>
+        <p>Milestone video</p>
+		<video width="640" height="360" controls autoplay loop muted>
+					<source src="images/circleCollider_cubeElasticRigid_render.gif" type="video/mp4" />
+					Your browser does not support the video tag.
+		</video>
+		<p></p>
         <a href="https://docs.google.com/presentation/d/10JHiaX4XL1NIrMlYHLGbccK807-ROKagpyNZuUP6TL0/edit?usp=sharing">Presentation Slides</a>
+        </center>
+	    <br>
+
         <br>
         <br>
-        <h2>Preliminary Results</h2>
+        <h1>Preliminary Results</h1>
         <p>Using the Taichi programming language, which is discussed further in the “Current Progress” section below, we have been able to render both rigid and elastic materials; we have also rendered specific materials such as snow, water, and sand. The majority of our work was in 2D, although we have begun taking a look at how 3D renders will work with Taichi.</p>
         <p>The following renders were made using the Minimum Least Squares Material Point Method, which improves the way in which traditional MPM does the discretisation that projects the continuous quantities to discrete particles and nodes. We played around with existing demos to gain an understanding of how the materials are simulated and adjusted parameters accordingly to get different effects. We used an existing engine to produce these results:</p>
         <div align="center">
             <table style="width=100%">
                 <tr  style="vertical-align:top">
-                    <td align="middle">
-                        <img src="images/breaking_snowballs.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt">Two snowballs colliding.</figcaption>
-                    </td>
-                    <td align="middle" >
-                        <img src="../mpm_taichi_engine/demo/collapsing_snowball_render/video.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt">A snowball hitting the ground.
-                        </figcaption>
-                    <td align="middle">
-                        <img src="../mpm_taichi_engine/demo/cube_horizontal_render/video.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt">A rigid cube (yellow) and elastic cube (red) colliding.</figcaption>
-                    </td>
-                    <td align="middle">
-                        <img src="../mpm_taichi_engine/demo/cube_vertical_render/video.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt"> An elastic cube (red) bouncing off a rigid cube (yellow).</figcaption>
-                    </td>
-                    <td align="middle">
-                        <img src="../mpm_taichi_engine/demo/ellipsoids_in_fluid_render/video.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt">Two elastic balls crashing into and floating in a body of water.</figcaption>
-                    </td>
+                </td>
+                <td align="middle">
+                    <img src="images/circleCollider_cubeElasticRigid_render.gif" width="250px" />
+                    <figcaption align="middle" style="font-size: 10pt">Elastic cubes (red and yellow) crashing into a rigid collider ball (purple).</figcaption>
+                </td>
+                <td align="middle">
+                    <img src="images/circleCollider_rectangleElastic_render.gif" width="250px" />
+                    <figcaption align="middle" style="font-size: 10pt">An elastic rectangle (red) falling onto a rigid collider ball (purple).</figcaption>
+                </td>
+                <td align="middle">
+                    <img src="images/circleElasticRigid_Water_render.gif" width="250px" />
+                    <figcaption align="middle" style="font-size: 10pt">An elastic ball (red) and rigid ball (yellow) crashing into and floating in a body of water.</figcaption>
+                </td>
                 </tr>
                 <tr  style="vertical-align:top">
-                    </td>
                     <td align="middle">
-                        <img src="../mpm_taichi_engine/demo/liquid_softblocks_render/video.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt">Elastic blocks (red) interacting with water (yellow, teal) and snow (white).</figcaption>
+                        <img src="images/cubeElasticRigid_horizontal_render.gif" width="250px" />
+                        <figcaption align="middle" style="font-size: 10pt">A rigid cube (yellow) and elastic cube (red) colliding.</figcaption>
                     </td>
+                    <td align="middle" >
+                        <img src="images/cubeElasticRigid_vertical_render.gif" width="250px" />
+                        <figcaption align="middle" style="font-size: 10pt">An elastic cube (red) bouncing off a rigid rectangle (yellow).
+                        </figcaption>
                     <td align="middle">
-                        <img src="../mpm_taichi_engine/demo/slanted_floor_render/video.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt">The same blocks, water, and snow, but on a tilted surface.</figcaption>
-                    </td>
-                    <td align="middle">
-                        <img src="../mpm_taichi_engine/demo/mud_snow_soft_render/video.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt">Snow (white), sand (yellow), and elastic block (red) interacting.</figcaption>
-                    </td>
-                    <td align="middle">
-                        <img src="../mpm_taichi_engine/demo/snow_ball_render/video.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt">Rigid ball (yellow) and elastic ball (red) interacting with snow (white).</figcaption>
-                    </td>
-                    <td align="middle">
-                        <img src="../mpm_taichi_engine/demo/snow_rigid_3d_render/video.gif" width="250px" />
-                        <figcaption align="middle" style="font-size: 10pt">3D render of waterfalls.</figcaption>
+                        <img src="images/circleSnowElasticRigid_render.gif" width="250px" />
+                        <figcaption align="middle" style="font-size: 10pt">A snow ball (white), rigid ball (yellow), and elastic ball (red) interacting.</figcaption>
                     </td>
                 </tr>
             </table>
         </div>
         <br>
 
-        <h2>Current Progress</h2>
+        <h1>Current Progress</h1>
         <p>So far, we have been focusing on exploring the Taichi programming language as a means of adding support for more materials in the MLS-MPM engine. Taichi is a Python-based programming language optimized for computer graphics, using Python as a framework. The engine currently includes an MLS-MPM solver, which we hope to modify to be more robust and generic. Our original plan was to improve traditional MPM by implementing MLS discretization, but we pivoted to this new goal after finding good existing solvers. Now we plan to add support for realistic hair, lava, and other viscoelastic materials. In addition to the preliminary renders displayed above, we have learned about the physics concepts involved. For example, from reading code and literature, we discovered the effect of various constants in terms of the physical properties. </p>
         <p>Young’s modulus ($E$) measures tensile elasticity and determines how susceptible a body is to deformation along a given axis when opposing forces are applied along the axis. The Poisson ratio ($\nu$) measures the deformation of an object perpendicular to an applied force. Softer materials generally have higher values of $\nu$. Lamé’s second parameter ($\mu$) describes a similar measure of tendency to shear (along axis coplanar to the applied force) stress. Finally, the first Lamé parameter ($\lambda$) is used to compute the Cauchy stress tensor ($\sigma$), which gives the stress state for a uniformly stressed body In $\texttt{mpm_solver.py}$, these parameters are varied across different materials to simulate various hard and soft bodies; since the constants affect the stresses and deformation, they are also used compute momentum changes and therefore affect the overall simulation.</p>
 
@@ -129,7 +124,7 @@
         <p>Getting an understanding of the physics and math behind MLS-MPM has been helping us make the material bodies look rigid in a more realistic way. We are hoping to now use this knowledge to move onto hair and viscoelastic fluid simulations.</p>
         <br>
 
-        <h2>Updated Workplan</h2>
+        <h1>Updated Workplan</h1>
         <div align="center">
             <table style="width=100%" border=2>
                 <tr align="middle">

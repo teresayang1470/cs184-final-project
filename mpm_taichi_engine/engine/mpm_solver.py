@@ -45,6 +45,7 @@ class MPMSolver:
     def __init__(
             self,
             res,
+            gui,
             size=1,
             max_num_particles=2**27,
             # Max 128 MB particles
@@ -57,6 +58,7 @@ class MPMSolver:
         assert self.dim in (
             2, 3), "MPM solver supports only 2D and 3D simulations."
 
+        self.gui = gui 
         self.t = 0.0
         self.res = res
         self.n_particles = ti.field(ti.i32, shape=())
@@ -315,7 +317,8 @@ class MPMSolver:
 
     def add_sphere_collider(self, center, radius, surface=surface_sticky):
         center = list(center)
-
+        radius = radius / self.gui.res[0]
+        
         @ti.kernel
         def collide(t: ti.f32, dt: ti.f32):
             for I in ti.grouped(self.grid_m):
