@@ -9,6 +9,7 @@ write_to_disk = False
 ti.init(arch=ti.cuda)  # Try to run on GPU
 
 gui = ti.GUI("Taichi Elements", res=512, background_color=0x112F41)
+video_manager = ti.VideoManager(output_dir=os.path.basename(__file__)[:-3]+ "_render/", framerate = 30, automatic_build=False)
 
 mpm = MPMSolver(res=(128, 128), gui=gui)
 
@@ -38,4 +39,8 @@ for frame in range(500):
     gui.circles(particles['position'],
                 radius=1.5,
                 color=particles['color'])
+    ideo_manager.write_frame(gui.get_image())
     gui.show(f'{frame:06d}.png' if write_to_disk else None)
+
+video_manager.make_video(mp4 = False, gif = True)
+
