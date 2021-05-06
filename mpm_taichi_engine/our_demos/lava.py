@@ -15,7 +15,7 @@ mpm = MPMSolver(res=(128, 128), gui = gui)
 # mpm.add_ellipsoid(center=[0.4, 0.3], radius=0.05, material=MPMSolver.material_elastic, color=0xED553B)
 # mpm.add_ellipsoid(center=[0.6, 0.3], radius=0.05, material=MPMSolver.material_rigid, color=0xFFFF00)
 
-mpm.add_cube(lower_corner=[0.1, 0.1], cube_size=[0.2, 0.2], material=MPMSolver.material_lava,  color=0xFF8C00, velocity=[math.sin(0.1), 0])
+mpm.add_cube(lower_corner=[0.1, 0.1], cube_size=[0.2, 0.2], material=MPMSolver.material_lava,  color=0xFF8C00)
 
 for frame in range(200):
     mpm.step(8e-3)
