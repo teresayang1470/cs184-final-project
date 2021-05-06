@@ -12,10 +12,10 @@ video_manager = ti.VideoManager(output_dir=os.path.basename(__file__)[:-3]+ "_re
 
 mpm = MPMSolver(res=(128, 128), gui = gui)
 
-# mpm.add_ellipsoid(center=[0.4, 0.3], radius=0.05, material=MPMSolver.material_elastic, color=0xED553B)
-# mpm.add_ellipsoid(center=[0.6, 0.3], radius=0.05, material=MPMSolver.material_rigid, color=0xFFFF00)
-
-mpm.add_cube(lower_corner=[0.1, 0.1], cube_size=[0.2, 0.2], material=MPMSolver.material_lava,  color=0xFF8C00)
+mpm.add_cube(lower_corner=[0.2, 0.5],
+                     cube_size=[0.2, 0.2],
+                     color=0xffa500,
+                     material=MPMSolver.material_lava)
 
 for frame in range(200):
     mpm.step(8e-3)
