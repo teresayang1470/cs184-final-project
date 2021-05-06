@@ -17,14 +17,17 @@ class MPMSolver:
     material_snow = 2
     material_sand = 3
     material_rigid = 4
-    material_lava = 5
+    material_bread = 5
+    material_confetti = 6
+    material_mud = 7
+    material_lava = 8
+    material_playdough = 9
     materials = {
         'WATER': material_water,
         'ELASTIC': material_elastic,
         'SNOW': material_snow,
         'SAND': material_sand,
-        'RIGID': material_rigid,
-        'LAVA': material_lava
+        'RIGID': material_rigid
     }
 
     # Surface boundary conditions
@@ -227,38 +230,53 @@ class MPMSolver:
             # deformation gradient update
             self.F[p] = (ti.Matrix.identity(ti.f32, self.dim) +
                          dt * self.C[p]) @ self.F[p]
+
             # Hardening coefficient: snow gets harder when compressed
             h = ti.exp(10 * (1.0 - self.Jp[p]))
+        
             if self.material[p] == self.material_elastic:  # jelly, make it softer
                 h = 0.075
+        
             if self.material[p] == self.material_rigid:
                 h = 2.0
+
+            if self.material[p] == self.material_bread:
+                h = 0.9
+
+            if self.material[p] == self.material_playdough:
+                h = 0.0075
+
             mu, la = self.mu_0 * h, self.lambda_0 * h
+
             if self.material[p] == self.material_water:  # liquid
-                mu = 0.0
+                mu = 0
+
             U, sig, V = ti.svd(self.F[p])
             J = 1.0
-            if self.material[p] != self.material_sand:
+
+            if self.material[p] != self.material_sand and self.material[p] != self.material_confetti and self.material[p] != self.material_mud:
                 for d in ti.static(range(self.dim)):
                     new_sig = sig[d, d]
                     if self.material[p] == self.material_snow:  # Snow
-                        new_sig = min(max(sig[d, d], 1 - 2.5e-2),
-                                      1 + 4.5e-3)  # Plasticity
+                        new_sig = min(max(sig[d, d], 1 - 2.5e-2),1 + 4.5e-3)  # Plasticity
+                    if self.material[p] == self.material_bread: 
+                        new_sig = min(max(sig[d, d], 1 - 8e-2), 1 + 15.0e-3)  # Plasticity
                     self.Jp[p] *= sig[d, d] / new_sig
                     sig[d, d] = new_sig
                     J *= new_sig
+
             if self.material[p] == self.material_water:
                 # Reset deformation gradient to avoid numerical instability
                 new_F = ti.Matrix.identity(ti.f32, self.dim)
                 new_F[0, 0] = J
                 self.F[p] = new_F
-            elif self.material[p] == self.material_snow:
+            elif self.material[p] == self.material_snow or self.material[p] == self.material_bread or self.material[p] == self.material_playdough: 
                 # Reconstruct elastic deformation gradient after plasticity
                 self.F[p] = U @ sig @ V.transpose()
 
             stress = ti.Matrix.zero(ti.f32, self.dim, self.dim)
 
-            if self.material[p] != self.material_sand and self.material[p] != self.material_lava: # send lava to "sand case" and apply stresses, forces, etc. accordingly
+            if self.material[p] != self.material_sand and self.material[p] != self.material_confetti and self.material[p] != self.material_mud and self.material[p] != self.material_lava:
                 stress = 2 * mu * (
                     self.F[p] - U @ V.transpose()) @ self.F[p].transpose(
                     ) + ti.Matrix.identity(ti.f32, self.dim) * la * J * (J - 1)
@@ -279,7 +297,6 @@ class MPMSolver:
                     center[i,
                            i] += self.lambda_0 * log_sig_sum * (1 / sig[i, i])
                 stress = U @ center @ V.transpose() @ self.F[p].transpose()
-
             stress = (-dt * self.p_vol * 4 * self.inv_dx**2) * stress
             affine = stress + self.p_mass * self.C[p]
 
@@ -461,7 +478,7 @@ class MPMSolver:
         self.color[i] = color
         self.material[i] = material
 
-        if material == self.material_sand:
+        if material == self.material_sand or material == self.material_mud:
             self.Jp[i] = 0
         else:
             self.Jp[i] = 1

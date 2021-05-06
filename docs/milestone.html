@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Inter|Montserrat" rel="stylesheet">
+    <link rel="shortcut icon" href="images/mpm.ico" />
+    <!-- Math notation -->
+    <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+    <script type="text/javascript"
+            src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+    <style>
+        body {
+            padding: 100px;
+            width: 1400px;
+            margin: auto;
+            text-align: left;
+            font-weight: 400;
+            font-family: 'Avenir', sans-serif;
+            color: #121212;
+            font-size:large;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+
+        }
+    </style>
+    <title>MPM Milestone</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="proposal.html">Proposal</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="milestone.html">Milestone Report</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Final Report</a>
+            </li>
+        </ul>
+    </nav>
+<br>
+<div>
+    <h1>Milestone Report: Material Point Method</h1>
+    <h2>CS184 - Spring 2021</h1>
+        <h4>Teresa Yang, Stephen Lin, Nikki Suppala, and Brandon Illescas</h4>
+        <br>
+
+        <br>
+	    <center>
+        <p>Milestone video</p>
+		<video width="640" height="360" controls autoplay loop muted>
+					<source src="images/milestoneVideo.mov" type="video/mp4" />
+					Your browser does not support the video tag.
+		</video>
+		<p></p>
+        <a href="https://docs.google.com/presentation/d/10JHiaX4XL1NIrMlYHLGbccK807-ROKagpyNZuUP6TL0/edit?usp=sharing" target="_blank">Presentation Slides</a>
+        </center>
+	    <br>
+
+        <br>
+        <br>
+        <h1>Preliminary Results</h1>
+        <p>Using the Taichi programming language, which is discussed further in the “Current Progress” section below, we have been able to render rigid, elastic, and viscoelastic materials; such as various shaped rigid and elastic bodies and specific materials such as water and snow.</p>
+        <p>The following renders were made using the Moving Least Squares Material Point Method, which improves the way in which traditional MPM does the discretisation that projects the continuous quantities to discrete particles and nodes. We expanded upon and reworked a basic engine to produce these results. We gained a conceptual basis with the rudimentary given demos to gain an understanding of how the materials are simulated and adjusted the parameters and logic in the engine accordingly to simulate the desirable material effects we wanted.</p>
+        <div align="center">
+            <table style="width=100%">
+                <tr  style="vertical-align:top">
+                </td>
+                <td align="middle">
+                    <img src="images/circleCollider_cubeElasticRigid_render.gif" width="250px" />
+                    <figcaption align="middle" style="font-size: 10pt">Elastic cubes (red and yellow) crashing into a rigid collider ball (purple).</figcaption>
+                </td>
+                <td align="middle">
+                    <img src="images/circleCollider_rectangleElastic_render.gif" width="250px" />
+                    <figcaption align="middle" style="font-size: 10pt">An elastic rectangle (red) falling onto a rigid collider ball (purple).</figcaption>
+                </td>
+                <td align="middle">
+                    <img src="images/circleElasticRigid_Water_render.gif" width="250px" />
+                    <figcaption align="middle" style="font-size: 10pt">An elastic ball (red) and rigid ball (yellow) crashing into and floating in a body of water.</figcaption>
+                </td>
+                </tr>
+                <tr  style="vertical-align:top">
+                    <td align="middle">
+                        <img src="images/cubeElasticRigid_horizontal_render.gif" width="250px" />
+                        <figcaption align="middle" style="font-size: 10pt">A rigid cube (yellow) and elastic cube (red) colliding.</figcaption>
+                    </td>
+                    <td align="middle" >
+                        <img src="images/cubeElasticRigid_vertical_render.gif" width="250px" />
+                        <figcaption align="middle" style="font-size: 10pt">An elastic cube (red) bouncing off a rigid rectangle (yellow).
+                        </figcaption>
+                    <td align="middle">
+                        <img src="images/circleSnowElasticRigid_render.gif" width="250px" />
+                        <figcaption align="middle" style="font-size: 10pt">A snow ball (white), rigid ball (yellow), and elastic ball (red) interacting.</figcaption>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+
+        <h1>Current Progress</h1>
+        <p>So far, we have been focusing on exploring the Taichi programming language as a means of adding support for more materials in the MLS-MPM engine. Taichi is a Python-based programming language optimized for computer graphics, using Python as a framework. We will continue to modify and expand the current MLS-MPM engine to be more robust and generic.</p>
+
+        <p>Our original plan was to convert a traditional MPM engine to a MLS-MPM engine by implementing MLS discretization, but we are pivoting and are planning on taking a MLS-MPM engine and improving upon that by expanding the engine to support more materials types and shapes. We plan to add expansion and support for a diverse set of materials that we can manage ranging from expanding support for material shapes, realistic hair simulations, lava, sand, and other viscoelastic materials.</p>
+
+        <p>In addition to the preliminary renders displayed above, we have learned about the physics concepts involved. For example, from reading code and literature, we discovered the effects of various constants in terms of the physical properties. Young’s modulus ($E$) measures tensile elasticity and determines how susceptible a body is to deformation along a given axis when opposing forces are applied along the axis. The Poisson ratio ($\nu$) measures the deformation of an object perpendicular to an applied force. Softer materials generally have higher values of $\nu$. Lamé’s second parameter ($\mu$) describes a similar measure of tendency to shear (along axis coplanar to the applied force) stress. Finally, the first Lamé parameter ($\lambda$) is used to compute the Cauchy stress tensor ($\sigma$), which gives the stress state for a uniformly stressed body In <a href="https://github.com/teresayang1470/cs184-final-project/tree/main/mpm_taichi_engine" target="_blank">$\texttt{mpm_solver.py}$</a>, these parameters are varied across different materials to simulate various hard and soft bodies; since the constants affect the stresses and deformation, they are also used compute momentum changes and therefore affect the overall simulation.</p>
+
+        
+        $$\tag{1} \lambda = \frac{E \nu}{(1 + \nu)(1 - 2 \nu)}$$
+        $$\tag{2} \mu = \frac{E}{2(1 + \nu)}$$
+        $$\tag{3} \sigma = 2 \mu \epsilon + \lambda \text{tr}(\epsilon)I$$
+
+        <p>Here, $\text{tr}$ is the trace function, and $\epsilon$ is the strain tensor.</p>
+
+        <p>Obtaining an understanding of the physics and math behind MLS-MPM has been helping us expand our engine making it more versatile and has helped us make our materials look physically realistic and accurate. We are hoping to now use this knowledge to move onto a diverse set of hair simulations or viscoelastic fluid simulations.</p>
+        <center>
+            <a href="proposal.html#MPM">MPM walkthrough</a>
+            <br>
+            <br>
+            <a href="images/mls-mpm.jpg" target="_blank">MPM MLS-MPM comparison</a>
+        </center>
+
+        <br>
+ 
+        <h1>Updated Workplan</h1>
+        <div align="center">
+            <table style="width=100%" border=2>
+                <tr align="middle">
+                    <th>Week</th>
+                    <th>Tasks</th>
+                </tr>
+                <tr>
+                    <td align="middle">
+                        <p> 4/26/21 </p>
+                    </td>
+                    <td align="middle" style="width: 75%">
+                        <p> Continue to expand the MLS-MPM engine to support more materials types and shapes.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="middle">
+                        <p> 5/3/21 </p>
+                    </td>
+                    <td align="middle" style="width: 75%">
+                        <p>Debugging and Final Renders; prepare for presentation.</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+</div>
+</body>
+</html>
