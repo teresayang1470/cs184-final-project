@@ -17,12 +17,14 @@ class MPMSolver:
     material_snow = 2
     material_sand = 3
     material_rigid = 4
+    material_lava = 5
     materials = {
         'WATER': material_water,
         'ELASTIC': material_elastic,
         'SNOW': material_snow,
         'SAND': material_sand,
-        'RIGID': material_rigid
+        'RIGID': material_rigid,
+        'LAVA': material_lava
     }
 
     # Surface boundary conditions
@@ -256,7 +258,7 @@ class MPMSolver:
 
             stress = ti.Matrix.zero(ti.f32, self.dim, self.dim)
 
-            if self.material[p] != self.material_sand:
+            if self.material[p] != self.material_sand and self.material[p] != self.material_lava: # send lava to "sand case" and apply stresses, forces, etc. accordingly
                 stress = 2 * mu * (
                     self.F[p] - U @ V.transpose()) @ self.F[p].transpose(
                     ) + ti.Matrix.identity(ti.f32, self.dim) * la * J * (J - 1)
@@ -267,7 +269,11 @@ class MPMSolver:
                 center = ti.Matrix.zero(ti.f32, self.dim, self.dim)
                 for i in ti.static(range(self.dim)):
                     log_sig_sum += ti.log(sig[i, i])
-                    center[i, i] = 2.0 * self.mu_0 * ti.log(
+                    if self.material[p] == self.material_lava: # special case for lava
+                        center[i, i] = 2.0 * self.mu_0 * 10 * ti.log(
+                        sig[i, i]) * (1 / sig[i, i])
+                    else:
+                        center[i, i] = 2.0 * self.mu_0 * ti.log(
                         sig[i, i]) * (1 / sig[i, i])
                 for i in ti.static(range(self.dim)):
                     center[i,
