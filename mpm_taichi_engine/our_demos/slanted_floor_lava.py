@@ -12,10 +12,10 @@ video_manager = ti.VideoManager(output_dir=os.path.basename(__file__)[:-3]+ "_re
 
 mpm = MPMSolver(res=(128, 128), unbounded=True, gui=gui)
 mpm.add_surface_collider(point=(-0.5, 0.8),
-                         normal=(0.3, 1),
+                         normal=(0, 1),
                          surface=mpm.surface_slip)
 mpm.add_surface_collider(point=(-0.5, 0.0),
-                         normal=(0.3, 1),
+                         normal=(0, 1),
                          surface=mpm.surface_slip)
 
 for frame in range(300):
