@@ -22,6 +22,7 @@ class MPMSolver:
     material_mud = 7
     material_lava = 8
     material_playdough = 9
+    material_honey = 10
     materials = {
         'WATER': material_water,
         'ELASTIC': material_elastic,
@@ -276,7 +277,7 @@ class MPMSolver:
 
             stress = ti.Matrix.zero(ti.f32, self.dim, self.dim)
 
-            if self.material[p] != self.material_sand and self.material[p] != self.material_confetti and self.material[p] != self.material_mud and self.material[p] != self.material_lava:
+            if self.material[p] != self.material_sand and self.material[p] != self.material_confetti and self.material[p] != self.material_mud and self.material[p] != self.material_lava and self.material[p] != self.material_honey:
                 stress = 2 * mu * (
                     self.F[p] - U @ V.transpose()) @ self.F[p].transpose(
                     ) + ti.Matrix.identity(ti.f32, self.dim) * la * J * (J - 1)
@@ -288,16 +289,16 @@ class MPMSolver:
                 for i in ti.static(range(self.dim)):
                     log_sig_sum += ti.log(sig[i, i])
                     if self.material[p] == self.material_lava: # special case for lava
-                        center[i, i] = 2.0 * self.mu_0 * 10 * ti.log(
-                        sig[i, i]) * (1 / sig[i, i])
+                        center[i, i] = 2.0 * self.mu_0 * 8.0 * ti.log(sig[i, i]) * (1 / sig[i, i])
+                    elif self.material[p] == self.material_honey: # special case for lava
+                        center[i, i] = 2.0 * self.mu_0 * 0.25 * ti.log(sig[i, i]) * (1 / sig[i, i])
                     else:
-                        center[i, i] = 2.0 * self.mu_0 * ti.log(
-                        sig[i, i]) * (1 / sig[i, i])
+                        center[i, i] = 2.0 * self.mu_0 * ti.log(sig[i, i]) * (1 / sig[i, i])
                 for i in ti.static(range(self.dim)):
-                    center[i,
-                           i] += self.lambda_0 * log_sig_sum * (1 / sig[i, i])
+                    center[i, i] += self.lambda_0 * log_sig_sum * (1 / sig[i, i])
                 stress = U @ center @ V.transpose() @ self.F[p].transpose()
             stress = (-dt * self.p_vol * 4 * self.inv_dx**2) * stress
+         
             affine = stress + self.p_mass * self.C[p]
 
             # Loop over 3x3 grid node neighborhood

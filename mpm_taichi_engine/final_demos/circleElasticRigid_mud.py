@@ -12,15 +12,13 @@ video_manager = ti.VideoManager(output_dir=os.path.basename(__file__)[:-3]+ "_re
 
 mpm = MPMSolver(res=(128, 128), gui = gui)
 
-mpm.add_ellipsoid(center=[0.4, 0.3], radius=0.05, material=MPMSolver.material_elastic, color=0xED553B)
+mpm.add_cube(lower_corner=[0.0, 0.0], cube_size=[0.4, 0.4], material=MPMSolver.material_water,  color = 0x068587, velocity=[1, 0])
+mpm.add_cube(lower_corner=[0.4, 0.2], cube_size=[0.2, 0.2], material=MPMSolver.material_water,  color = 0x068587, velocity=[3, 0])
 
-mpm.add_ellipsoid(center=[0.6, 0.3], radius=0.05, material=MPMSolver.material_rigid, color=0xFFFF00)
+mpm.add_cube(lower_corner=[0.6, 0.0], cube_size=[0.4, 0.4], material=MPMSolver.material_honey,  color = 0xD2A307, velocity=[-1, 0])
+mpm.add_cube(lower_corner=[0.4, 0.0], cube_size=[0.2, 0.2],  material=MPMSolver.material_honey,  color = 0xD2A307, velocity=[-3, 0])
 
-mpm.add_ellipsoid(center=[0.2, 0.3], radius=0.05, material=MPMSolver.material_playdough, color=0x29A55A)
 
-mpm.add_ellipsoid(center=[0.8, 0.3], radius=0.05, material=MPMSolver.material_bread, color=0x8B4513)
-
-mpm.add_cube(lower_corner=[0.1, 0.6], cube_size=[0.7, 0.4], material=MPMSolver.material_mud,  color=0x897D76, velocity=[math.sin(0.1), 0])
 
 for frame in range(200):
     mpm.step(8e-3)
