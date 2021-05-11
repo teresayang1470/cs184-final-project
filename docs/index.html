@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Inter|Montserrat" rel="stylesheet">
-    <link rel="shortcut icon" href="images/mpm.ico" />
+    <link rel="shortcut icon" href="images/mpm.ico"/>
     <!-- Math notation -->
     <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -12,7 +12,9 @@
       processEscapes: true
     }
   });
-</script>
+
+
+    </script>
 
     <script type="text/javascript"
             src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
@@ -27,8 +29,9 @@
             font-weight: 400;
             font-family: 'Avenir', sans-serif;
             color: #121212;
-            font-size:large;
+            font-size: large;
         }
+
         h1, h2, h3, h4 {
             font-family: 'Montserrat', sans-serif;
             font-weight: bold;
@@ -36,38 +39,39 @@
         }
     </style>
     <title>MPM Final</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 </head>
 <body>
-    <nav class="navbar fixed-top navbar-expand-sm bg-dark navbar-dark">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="proposal.html">Proposal</a>
-            </li>
-          <li class="nav-item">
+<nav class="navbar fixed-top navbar-expand-sm bg-dark navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" href="proposal.html">Proposal</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="milestone.html">Milestone Report</a>
-          </li>
-          <li class="nav-item active">
+        </li>
+        <li class="nav-item active">
             <a class="nav-link" href="index.html">Final Report</a>
-          </li>
-        </ul>
-      </nav>
+        </li>
+    </ul>
+</nav>
 <br>
 <div>
     <h1>Final Report: Material Point Method</h1>
     <h2>CS184 - Spring 2021</h1>
-        <h4>Teresa Yang, Stephen Lin, Nikki Suppala, and Brandon Illescas</h4>
+        <h4>Brandon Illescas, Stephen Lin, Nikki Suppala, and Teresa Yang</h4>
         <br>
 
         <br>
         <center>
-        <p>Final video</p>
-        <video width="640" height="360" controls autoplay loop muted>
-                    <source src="images/" type="video/mp4" />
-                    Your browser does not support the video tag.
-        </video>
-        <p></p>
-        <a href="https://docs.google.com/presentation/d/182Y8NyrD41Tjg59G0m7ChR23hY0mFtYcufQvzSKXk6Y/edit?usp=sharing" target="_blank">Presentation Slides</a>
+            <p>Final video</p>
+            <video width="640" height="360" controls autoplay loop muted>
+                <source src="images/" type="video/mp4"/>
+                Your browser does not support the video tag.
+            </video>
+            <p></p>
+            <a href="https://docs.google.com/presentation/d/182Y8NyrD41Tjg59G0m7ChR23hY0mFtYcufQvzSKXk6Y/edit?usp=sharing"
+               target="_blank">Presentation Slides</a>
         </center>
         <br>
 
@@ -76,73 +80,172 @@
 
         <h1>Abstract</h1>
         <br>
-      
-      <p>The material point method (<a href="proposal.html#MPM" target="_blank">MPM</a>) is a robust numerical and spatial discretization method used for simulating continuum material types and decoupling interactions. It is a widely used hybrid Eulerian-Lagrangian method (<a href="proposal.html#MPM2" target="_blank">uses both particles and grids</a>) that has since diverged into many many variations and optimizations since its original conception in the early 1990s at the University of New Mexico.
-      </p>
 
-      <p> One of these variants incorporates moving least squares (MLS) discretization. MLS-MPM improves the way in which traditional MPM algorithms project continuous quantities into discrete particles and nodes and is actually one of the simpler MPM methods to implement. One particular engine that is currently in the early stages of development using the Taichi programming language is the Taichi Elements’ High-Performance Multi-Material Continuum Physics Engine. As the name suggests, it supports interactions between multiple continuum materials but in its current basic form only supports primitive types such as low-viscosity, grain, and elastic materials. 
-      </p>
+        <p>The material point method (<a href="proposal.html#MPM" target="_blank">MPM</a>) is a robust numerical and
+            spatial discretization method used for simulating continuum material types and decoupling interactions. It
+            is a widely used hybrid Eulerian-Lagrangian method (<a href="proposal.html#MPM2" target="_blank">uses both
+                particles and grids</a>) that has since diverged into many many variations and optimizations since its
+            original conception in the early 1990s at the University of New Mexico.
+        </p>
 
-      <p>
-          For our project, we have taken the liberty of expanding the unfinished engine by adding new materials types such as hyperelastic, rigidelastic, and brittle continuum materials and widening support for more viscoelastic fluid types such as high-viscosity, shear resistant, coagulate, and discrete particle viscoelastic continuum materials. We accomplished this task primarily by modifying various physical parameters in the algorithmic math and implementing the proper edge cases for various material types. The result is a much more robust and capable engine that accurately simulates multi-material coupling and decoupling collisions and mixtures.
-      </p>
-      <br>
+        <p> One of these variants incorporates moving least squares (MLS) interpolation for the MPM discretization.
+            MLS-MPM improves the efficiency and accuracy of how traditional MPM algorithms project continuous quantities
+            into discrete particles and nodes and is
+            actually one of the simpler MPM methods to implement. One particular engine that is currently in the early
+            stages of development using the Taichi programming language is Taichi Elements’ High-Performance
+            Multi-Material Continuum Physics Engine. As the name suggests, it supports interactions between multiple
+            continuum materials but, in its current basic form, only supports primitive types such as low-viscosity,
+            grain, and elastic materials.
+        </p>
 
-      <h1>Technical approach</h1>
-      <br>
-      <h3>MLS-MPM Overview & Implementation</h3>
-      <br>
+        <p>
+            For our project, we have taken the liberty of expanding the unfinished engine by adding new materials types
+            such as hyperelastic, rigidelastic, and brittle continuum materials and widening support for more
+            viscoelastic fluid types such as high-viscosity, shear resistant, coagulate, and discrete particle
+            viscoelastic continuum materials. We accomplished these tasks primarily by modifying various physical
+            parameters in the algorithmic math and implementing the proper edge cases for various material types. The
+            result is a much more robust and capable engine that accurately simulates multi-material coupling and
+            decoupling collisions and mixtures.
+        </p>
+        <br>
 
-      <p>The Taichi Elements’ MLS-MPM engine follows six basic steps and represents some subtle differences compared to traditional MPM. Nonetheless, in brief, the steps as follows (more detailed descriptions are in the original paper by Hu et al.:</p>
+        <h1>Technical approach</h1>
+        <br>
+        <h3>MLS-MPM Overview & Implementation</h3>
+        <br>
 
-      <ul>
-        <li>1. Apply the APIC (Affine Particle In-Cell) technique, introduced by C. Jiang et al. to transfer momentum from the Lagrangian particles to the Eulerian grid.</li>
-        <li>2. Update the grid momentum using the symplectic Euler equation.</li>
-        <li>3. Apply APIC again to move the new grid velocities and polynomial force coefficients back to the particles.</li>
-        <li>4. Update the particle deformation gradient (necessary for some materials) via the MLS approximation with respect to the velocity gradient. If $\mathbf{F}_p^{n+1}$ gives the force at $n+1$, $\delta t$ is the time step, and $\mathbf{C}_p^{n+1}$ is the affine velocity matrix obtained from APIC, then $$\tag{1} \mathbf{F}_p^{n+1} = (\mathbf{I} + \delta t \mathbf{C}_p^{n+1})\mathbf{F}_p^n$$</li>
-        <li>5. Update particle plasticity by projecting the plasticity particle deformation gradient (necessary for materials such as mud).</li>
-        <li>6. Update the particle velocities; in the literature, this is known as particle advection.</li>
-      </ul>
+        <p>Taichi Elements’ MLS-MPM engine follows six basic steps and has some subtle differences compared to
+            traditional MPM. In brief, the steps are as follows (more detailed descriptions are in the original paper by
+            Hu et al):</p>
 
-      <p>In our project, we focused on updating the governing equations where needed, in addition to the characteristic constants for each material. This allowed us to use the flexibility and general nature of the graphics engine to support a variety of substances while keeping in mind their physical properties. Below, we describe the major constants and important equations that supported our implementation.</p>
+        <ul>
+            <li>1. Apply the APIC (Affine Particle In-Cell) technique, introduced by C. Jiang et al. to transfer
+                momentum from the Lagrangian particles to the Eulerian grid.
+            </li>
+            <li>2. Update the grid momentum using the symplectic Euler equation.</li>
+            <li>3. Apply APIC again to move the new grid velocities and polynomial force coefficients back to the
+                particles.
+            </li>
+            <li>4. Update the particle deformation gradient (necessary for some materials) via the MLS approximation
+                with respect to the velocity gradient. If $\mathbf{F}_p^{n+1}$ gives the force at $n+1$, $\delta t$ is
+                the time step, and $\mathbf{C}_p^{n+1}$ is the affine velocity matrix obtained from APIC, then $$\tag{1}
+                \mathbf{F}_p^{n+1} = (\mathbf{I} + \delta t \mathbf{C}_p^{n+1})\mathbf{F}_p^n$$
+            </li>
+            <li>5. Update particle plasticity by projecting the plasticity particle deformation gradient (necessary for
+                materials such as mud).
+            </li>
+            <li>6. Update the particle velocities; in the literature, this is known as particle advection.</li>
+        </ul>
+        <br>
+        <p>
+            Here is a summary of the traditional elements of MPM and MLS-MPM. The only difference is the stress
+            momentum contribution and the evaluation of velocity gradient!
+        </p>
+        <td align="middle" style="padding-right: 80px">
+            <img src="images/mls_summary.png" width="720px"/>
+        </td>
 
-      <p>Young’s modulus ($E$) measures tensile elasticity and determines how susceptible a body is to deformation along a given axis when opposing forces are applied along the axis. The Poisson ratio ($\nu$) measures the deformation of an object perpendicular to an applied force. Softer materials generally have higher values of $\nu$. Lamé’s second parameter ($\mu$) describes a similar measure of tendency to shear (along axis coplanar to the applied force) stress. Finally, the first Lamé parameter ($\lambda$) is used to compute the Cauchy stress tensor ($\sigma$), which gives the stress state for a uniformly stressed body In <a href="https://github.com/teresayang1470/cs184-final-project/blob/main/mpm_taichi_engine/engine/mpm_solver.py" target="_blank">$\texttt{mpm_solver.py}$</a>, these parameters are varied across different materials to simulate various hard and soft bodies; since the constants affect the stresses and deformation, they are also used compute momentum changes and therefore affect the overall simulation.</p>
+        <br>
+        <br>
 
-      <p> 
-        $$\tag{2} \lambda = \frac{E \nu}{(1 + \nu)(1 - 2 \nu)}$$
-        $$\tag{3} \mu = \frac{E}{2(1 + \nu)}$$
-        $$\tag{4} \sigma = 2 \mu \epsilon + \lambda \text{tr}(\epsilon)I$$ <p>
+        <p>In our project, we focused on updating the governing equations where needed in addition to the characteristic
+            constants for each material. This allowed us to use the flexibility and general nature of the graphics
+            engine to support a variety of substances while keeping in mind their physical properties. Below, we
+            describe the major constants and important equations that supported our implementation.</p>
 
-        
-      <p>Here, $\text{tr}$ is the trace function, and $\epsilon$ is the strain tensor.</p>
-      <br>
-      <h3>Highlight Implementations for Extra Challenging Material Types</h3>
-      <br>
+        <p>Young’s modulus ($E$) measures tensile elasticity and determines how susceptible a body is to deformation
+            along a given axis when opposing forces are applied along the axis. The Poisson ratio ($\nu$) measures the
+            deformation of an object perpendicular to an applied force. Softer materials generally have higher values of
+            $\nu$. Lamé’s second parameter ($\mu$) describes a similar measure of tendency to shear (along axis coplanar
+            to the applied force) stress. Finally, the first Lamé parameter ($\lambda$) is used to compute the Cauchy
+            stress tensor ($\sigma$) which gives the stress state for a uniformly stressed body In <a
+                    href="https://github.com/teresayang1470/cs184-final-project/blob/main/mpm_taichi_engine/engine/mpm_solver.py"
+                    target="_blank">$\texttt{mpm_solver.py}$</a>, these parameters vary across different materials to
+            simulate a spectrum of hard and soft bodies. Since the constants affect the stresses and deformation, they
+            are also used to compute momentum changes and, therefore, affect the overall simulation.</p>
 
-      <h4 style="color: #acac0197;">Rigidelastic</h4>
-      <p>The primary constant that needed to be modified for the rigidelastic material case was the hardening coefficient, $h$. This value determines how the strength of a material changes as it is compressed. In the code, the first and second Lamé parameters are scaled by $h$ so that the resulting stress tensor and deformation gradient reflect this hardening property. The higher the $h$ value, the harder a material gets when it is compressed; accordingly, the higher the $h$ value, the more rigid the material is. Thus, to create rigidelastic materials means creating a special case in the code where the $h$ value is increased drastically.</p>
-
-      <p>The resulting renders are perfectly rigidelastic, with the rendered material when paid close attention is observed to have small deformations that are visible when it collides with another body. The main lesson learned here is this could theoretically become a completely rigid body by making $h$ even higher; however, doing so causes the engine to error. This is likely because the engine was specifically designed for soft bodies, so there is no case to handle the elastic deformation gradient that results from a high $h$ and resultantly high Lamé parameters. Nonetheless, we convinced a new material type from persistence and trial and error.</p>
-      <br>
-
-      <h4 style="color: #29A55A;">Hyperelastic</h4>
-      <p>The way to conceive a material of this type is to think of an elastic-snow hybrid since it takes properties from each. The drastic order of magnitude decreases in the $h$, the hardening coefficient, from the elasticity material and the precise reconstruction of elastic deformation gradient after plasticity. If after the plasticity the elastic deformation gradient is not accounted for in this hyperelastic case, then it causes the material to just collapse in on itself to a single point(in some cases) causing it not conserve mass through and after deformations resulting in undefined and unrealistic behavior.</p>
-
-      <p>The main lesson learned here that took quite some time to figure out was the reconstruction of the elastic deformation gradient, as without this addition we kept running into renders where if the momentums and velocities of the material were too drastic it would cause unrealistic deformations. Thus, having an intuitive sense for how algorithm control logic allowed us to figure that a simple deformation gradient correction was needed to resolve our issues and should be paid close attention to when viewing hyperelastic materials deform.</p>
-      <br>
-
-      <h4 style="color: #8B4513;">Brittle</h4>
-      <p>The main school of thought that must be extended in order to successfully implement a brittle type of material is extending the hyperelastic case with precisely chosen plasticity constants values. Choosing the correct values in order to exhibit a behavior which through a deformation the material crumbles but does not disintegrate like in the grain/snow case. Once these values are optimally chosen, we must similarly reconstruct the elastic deformation gradient in order to conserve mass and guarantee realistic and defined deformation renders. We must also define an $h$, hardening coefficient, which deforms similarly in the hyperelastic case but not as drastically. Thus, with the three dimensionality accounting of deformation we are able to successfully render a brittle material type successfully.</p>
+        <p>
+            $$\tag{2} \lambda = \frac{E \nu}{(1 + \nu)(1 - 2 \nu)}$$
+            $$\tag{3} \mu = \frac{E}{2(1 + \nu)}$$
+            $$\tag{4} \sigma = 2 \mu \epsilon + \lambda \text{tr}(\epsilon)I$$
+        <p>
 
 
-      <p>However, the challenge to getting working an implementation of a brittle type of material is choosing precisely the correct min of max’s of the plasticity coefficients as there are many nonlinearity for these two dimensional coefficient and honing in the correct one took quite a bit of researching and some trail error to get working in just quite the correct way. The main lesson here is that guessing by purely trail and errors will not obtain the desired material behavior in an efficient manner.</p>
-      <br>
+        <p>Here $\text{tr}$ is the trace function, and $\epsilon$ is the strain tensor.</p>
+        <br>
+        <h3>Highlight Implementations for Extra Challenging Material Types</h3>
+        <br>
 
-      <h4 style="color: #EA5C10;">Coagulate</h4>
-      <p>In order to create a lava-like substance, we increased the effective shear stress constant $\mu$. By doing so, we ensured that the material would have a greater viscous flow effect while exhibiting other desired properties such as notable self-collisions and coagulation. Extreme values of $\mu$ can easily cause instability issues due to the deformation gradient computation. Therefore, we had to be careful to stay within the natural constraints of the engine through some slight trial-and-error. In addition to a non-zero $\mu$ (as compared to water, for example), we also had to use the particle plasticity calculation in a similar way to mud.</p>
+        <h4 style="color: #acac0197;">Rigidelastic</h4>
+        <p>The primary constant that needed to be modified for the rigidelastic material case was the hardening
+            coefficient, $h$. This value determines how the strength of a material changes as it is compressed. In the
+            code, the first and second Lamé parameters are scaled by $h$ so that the resulting stress tensor and
+            deformation gradient reflect this hardening property. The higher the $h$ value, the harder a material gets
+            when it is compressed. Accordingly, the higher the $h$ value, the more rigid the material is. Thus, to
+            create rigidelastic materials means creating a special case in the code where the $h$ value is increased
+            drastically.</p>
 
-      <p>Initially, we struggled with conceptualizing the best way to implement lava. Originally, we believed that it would be closer to water in terms of the fluid properties; however, we learned that the simulation frequently suffered from numerical instability and therefore required a more specialized approach. From the MPM course, we learned more about the particle plasticity deformation gradient and how it applied to mud. Therefore, we decided to move forward and add the appropriate logic in <a href="https://github.com/teresayang1470/cs184-final-project/blob/main/mpm_taichi_engine/engine/mpm_solver.py" target="_blank">$\texttt{mpm_solver.py}$</a>.</p>
+        <p>The resulting renders appear perfectly rigidelastic. When paid close attention, the material can be observed
+            to have small deformations that are visible when it collides with another body. The main lesson learned here
+            is this could theoretically become a completely rigid body by making $h$ even higher; however, doing so
+            causes the engine to error. This is likely because the engine was specifically designed for soft bodies, so
+            there is no case to handle the elastic deformation gradient that results from a high $h$ and resultantly
+            high Lamé parameters. Nonetheless, we conceived a new material type from persistence and trial and
+            error.</p>
+        <br>
 
+        <h4 style="color: #29A55A;">Hyperelastic</h4>
+        <p>The way to conceive a material of this type is to model after an elastic-snow hybrid since it takes
+            properties from each. The hardening coefficient, $h$, decreases drastically compared to the elastic material
+            and
+            so does the precise reconstruction of the elastic deformation gradient after collisions.
+            If the elastic deformation gradient is not accounted for after collisions involving hyperelastics,
+            then the material collapses in on itself to a single point in some cases. This causes the material to not
+            conserve mass through and results in undefined and unrealistic behavior after deformation.</p>
+
+        <p>The main lesson learned here is that it takes quite some time to figure out the reconstruction of the elastic
+            deformation gradient. Without this addition, we kept running into renders where if the momentums and
+            velocities of the material were too drastic it would cause unrealistic deformations. Thus, having an
+            intuitive sense of algorithm control logic allowed us to figure out when a simple deformation gradient
+            correction was needed to resolve our issues.
+        </p>
+        <br>
+
+        <h4 style="color: #8B4513;">Brittle</h4>
+        <p>The main school of thought to follow to successfully implement a brittle type of
+            material is extending the hyperelastic case with precisely chosen plasticity constants values. We must the
+            correct values to exhibit a behavior where deformation of the material causes it to crumble but not to
+            disintegrate like in the grain/snow case. Once these values are optimally chosen, we must similarly
+            reconstruct the elastic deformation gradient to conserve mass and guarantee realistic and defined
+            deformation renders. We must also define an $h$, hardening coefficient, which results in deformation similar
+            to the
+            hyperelastic case but not as drastic. Thus, with the three dimensionality accounting of deformation, we
+            are able to successfully render a brittle material type successfully.</p>
+
+
+        <p>The challenge to getting a working implementation of a brittle type of material is choosing
+            the correct minimum and maximum plasticity coefficients values since there are many nonlinearities for these
+            two dimensional coefficients. Honing in the correct one took quite a bit of research and some trail
+            error. The main lesson here is that guessing by purely trial
+            and error will not result in the desired material behavior in an efficient manner.</p>
+        <br>
+
+        <h4 style="color: #EA5C10;">Coagulate</h4>
+        <p>In order to create a lava-like substance, we increased the effective shear stress constant $\mu$. By doing
+            so, we ensured that the material would have a greater viscous flow effect while exhibiting other desired
+            properties such as notable self-collisions and coagulation. Extreme values of $\mu$ can easily cause
+            instability issues due to the deformation gradient computation. Therefore, we had to be careful to stay
+            within the natural constraints of the engine through some slight trial-and-error. In addition to a non-zero
+            $\mu$ (as compared to water, for example), we also had to use the particle plasticity calculation in a
+            similar way to mud.</p>
+
+        <p>Initially, we struggled with conceptualizing the best way to implement lava. Originally, we believed that it
+            would be closer to water in terms of the fluid properties; however, we learned that the simulation
+            frequently suffered from numerical instability and therefore required a more specialized approach. From the
+            MPM course, we learned more about the particle plasticity deformation gradient and how it applied to mud.
+            Therefore, we decided to move forward and add the appropriate logic in <a
+                    href="https://github.com/teresayang1470/cs184-final-project/blob/main/mpm_taichi_engine/engine/mpm_solver.py"
+                    target="_blank">$\texttt{mpm_solver.py}$</a>.</p>
 
 
         <br>
@@ -150,95 +253,119 @@
         <br>
         <h3>Soft & Rigid & Contort Continuum Materials</h3>
         <br>
-        <h4 style="color: #ED553B; display:inline-block;">Elastic <a href="https://youtu.be/nc-N4TJS0JM?t=78" target="_blank">(Egg)</a></h4> <h4 style="display:inline-block;">[Included]</h4>
+        <h4 style="color: #ED553B; display:inline-block;">Elastic <a href="https://youtu.be/nc-N4TJS0JM?t=78"
+                                                                     target="_blank">(Egg)</a></h4> <h4
+                style="display:inline-block;">[Included]</h4>
+        <br>
+        <p> Notice the springiness and microtears.</p>
+        <br>
         <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /base_elastic.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /elastic_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                  <img src="images/final_renders_base/rigid:soft body /base_elastic2.gif" width="350px" />
-              </td>
-          </table>
+            <table style="width=100%">
+                <tr style="vertical-align:top">
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /base_elastic.gif" width="350px"/>
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /elastic_slanted.gif" width="350px"/>
+                    </td>
+                    <td align="middle">
+                        <img src="images/final_renders_base/rigid:soft body /base_elastic2.gif" width="350px"/>
+                    </td>
+            </table>
         </div>
         <br>
 
-        <h4 style="color: #29A55A; display:inline-block;">Hyperelastic <a href="https://youtu.be/4n5AfHYST6E" target="_blank">(Jello)</a></h4> <h4 style="display:inline-block;">[New]</h4>
+        <h4 style="color: #29A55A; display:inline-block;">Hyperelastic <a href="https://youtu.be/4n5AfHYST6E"
+                                                                          target="_blank">(Jello)</a></h4> <h4
+                style="display:inline-block;">[New]</h4>
+        <br>
+        <p> Notice how the material tears all the way through and does not bounce back as much.</p>
+        <br>
         <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /base_hypereslatic.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /hyper_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                  <img src="images/final_renders_base/rigid:soft body /base_hyper2.gif" width="350px" />
-              </td>
-          </table>
+            <table style="width=100%">
+                <tr style="vertical-align:top">
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /base_hypereslatic.gif" width="350px"/>
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /hyper_slanted.gif" width="350px"/>
+                    </td>
+                    <td align="middle">
+                        <img src="images/final_renders_base/rigid:soft body /base_hyper2.gif" width="350px"/>
+                    </td>
+            </table>
         </div>
         <br>
 
         <h4 style="color: #acac0197; display:inline-block;  border: 10px solid bla;
-        display: inline-block;">Rigidelastic <a href="https://youtu.be/aY3TrpiUOqE?t=14" target="_blank">(Bouncy Ball)</a></h4> <h4 style="display:inline-block;">[New]</h4>
+        display: inline-block;">Rigidelastic <a href="https://youtu.be/aY3TrpiUOqE?t=14" target="_blank">(Bouncy
+            Ball)</a></h4> <h4 style="display:inline-block;">[New]</h4>
+        <br>
+        <p> Notice how there are practically no microtears and bounciness increases a lot.</p>
+        <br>
         <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /base_rigid.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /rigid_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                  <img src="images/final_renders_base/rigid:soft body /base_rigid2.gif" width="350px" />
-              </td>
-          </table>
+            <table style="width=100%">
+                <tr style="vertical-align:top">
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /base_rigid.gif" width="350px"/>
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /rigid_slanted.gif" width="350px"/>
+                    </td>
+                    <td align="middle">
+                        <img src="images/final_renders_base/rigid:soft body /base_rigid2.gif" width="350px"/>
+                    </td>
+            </table>
         </div>
         <br>
 
-        <h4 style="color: #bfbfbf; display:inline-block;">Grain <a href="https://youtu.be/AgIhbALz_l4?t=459" target="_blank">(Snow)</a></h4> <h4 style="display:inline-block;">[Included]</h4>
+        <h4 style="color: #bfbfbf; display:inline-block;">Grain <a href="https://youtu.be/AgIhbALz_l4?t=459"
+                                                                   target="_blank">(Snow)</a></h4> <h4
+                style="display:inline-block;">[Included]</h4>
+        <br>
+        <p> Notice how the snow particles separate a lot.</p>
+        <br>
         <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /base_snow.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /snow_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                  <img src="images/final_renders_base/rigid:soft body /base_snow2.gif" width="350px" />
-              </td>
-          </table>
+            <table style="width=100%">
+                <tr style="vertical-align:top">
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /base_snow.gif" width="350px"/>
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /snow_slanted.gif" width="350px"/>
+                    </td>
+                    <td align="middle">
+                        <img src="images/final_renders_base/rigid:soft body /base_snow2.gif" width="350px"/>
+                    </td>
+            </table>
         </div>
         <br>
 
 
-        <h4 style="color: #8B4513; display:inline-block;">Brittle <a href="https://youtu.be/6dFjgVB7GxA?t=19" target="_blank">(Twix)</a></h4> <h4 style="display:inline-block;">[New]</h4>
+        <h4 style="color: #8B4513; display:inline-block;">Brittle <a href="https://youtu.be/6dFjgVB7GxA?t=19"
+                                                                     target="_blank">(Twix)</a></h4> <h4
+                style="display:inline-block;">[New]</h4>
+        <br>
+        <p> Notice how the particles do not separate as much.</p>
+        <br>
         <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /base_brittle.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/rigid:soft body /brittle_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                  <img src="images/final_renders_base/rigid:soft body /base_brittle2.gif" width="350px" />
-              </td>
-          </table>
+            <table style="width=100%">
+                <tr style="vertical-align:top">
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /base_brittle.gif" width="350px"/>
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/rigid:soft body /brittle_slanted.gif" width="350px"/>
+                    </td>
+                    <td align="middle">
+                        <img src="images/final_renders_base/rigid:soft body /base_brittle2.gif" width="350px"/>
+                    </td>
+            </table>
         </div>
         <br>
 
@@ -246,216 +373,275 @@
         <h3>Viscoelastic Continuum Materials</h3>
         <br>
 
-        <h4 style="color: #068587; display:inline-block;">Low-Viscosity <a href="https://youtu.be/Nx2AICEMnbY" target="_blank">(Water)</a></h4> <h4 style="display:inline-block;">[Included]</h4>
+        <h4 style="color: #068587; display:inline-block;">Low-Viscosity <a href="https://youtu.be/Nx2AICEMnbY"
+                                                                           target="_blank">(Water)</a></h4> <h4
+                style="display:inline-block;">[Included]</h4>
         <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/base_water.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/water_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                <img src="images/final_renders_base/viscoelastic/base_water2.gif" width="350px" />
-              </td>
-          </table>
+            <table style="width=100%">
+                <tr style="vertical-align:top">
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/viscoelastic/base_water.gif" width="350px"/>
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/viscoelastic/water_slanted.gif" width="350px"/>
+                    </td>
+                    <td align="middle">
+                        <img src="images/final_renders_base/viscoelastic/base_water2.gif" width="350px"/>
+                    </td>
+            </table>
         </div>
         <br>
 
-        <h4 style="color: #D2A307; display:inline-block;">High-Viscosity <a href="https://youtu.be/hjKcrOZ9SNg?t=204" target="_blank">(Honey)</a></h4> <h4 style="display:inline-block;">[New]</h4>
+        <h4 style="color: #D2A307; display:inline-block;">High-Viscosity <a href="https://youtu.be/hjKcrOZ9SNg?t=204"
+                                                                            target="_blank">(Honey)</a></h4> <h4
+                style="display:inline-block;">[New]</h4>
         <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/base_viscous.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/honey_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                <img src="images/final_renders_base/viscoelastic/base_honey2.gif" width="350px" />
-              </td>
-          </table>
-        </div>
-        <br>  
-
-        <h4 style="color: #897D76; display:inline-block;">Shear Resistant <a href="https://youtu.be/Dh8OMMTW-eo?t=6" target="_blank">(Concrete)</a></h4> <h4 style="display:inline-block;">[New]</h4>
-        <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/base_mud.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/mud_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                <img src="images/final_renders_base/viscoelastic/base_mud2.gif" width="350px" />
-              </td>
-          </table>
+            <table style="width=100%">
+                <tr style="vertical-align:top">
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/viscoelastic/base_viscous.gif" width="350px"/>
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/viscoelastic/honey_slanted.gif" width="350px"/>
+                    </td>
+                    <td align="middle">
+                        <img src="images/final_renders_base/viscoelastic/base_honey2.gif" width="350px"/>
+                    </td>
+            </table>
         </div>
         <br>
 
-        <h4 style="color: #EA5C10; display:inline-block;">Coagulate <a href="https://youtu.be/m_e7jUfvt-I?t=9" target="_blank">(Lava)</a></h4> <h4 style="display:inline-block;">[New]</h4>
+        <h4 style="color: #897D76; display:inline-block;">Shear Resistant <a href="https://youtu.be/Dh8OMMTW-eo?t=6"
+                                                                             target="_blank">(Concrete)</a></h4> <h4
+                style="display:inline-block;">[New]</h4>
         <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/base_lava.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/lava_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                <img src="images/final_renders_base/viscoelastic/base_lava2.gif" width="350px" />
-              </td>
-          </table>
+            <table style="width=100%">
+                <tr style="vertical-align:top">
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/viscoelastic/base_mud.gif" width="350px"/>
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/viscoelastic/mud_slanted.gif" width="350px"/>
+                    </td>
+                    <td align="middle">
+                        <img src="images/final_renders_base/viscoelastic/base_mud2.gif" width="350px"/>
+                    </td>
+            </table>
         </div>
         <br>
 
-        <h4 style="color: #A864FD; display:inline-block;">Disc<h4 style="color: #29CDFF; display:inline-block;">rete P<h4 style="color: #78FF44; display:inline-block;">art<h4 style="color: #FF718D; display:inline-block;">icl<h4 style="color: #960881; display:inline-block;">es <a href="https://youtu.be/ItDuMqX5vdM?t=15" target="_blank">(Confetti)</a></h4> <h4 style="display:inline-block;">[New]</h4>
+        <h4 style="color: #EA5C10; display:inline-block;">Coagulate <a href="https://youtu.be/m_e7jUfvt-I?t=9"
+                                                                       target="_blank">(Lava)</a></h4> <h4
+                style="display:inline-block;">[New]</h4>
         <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/base_confetii.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/final_renders_base/viscoelastic/confetii_slanted.gif" width="350px" />
-              </td>
-              <td align="middle">
-                <img src="images/final_renders_base/viscoelastic/base_confetii2.gif" width="350px" />
-              </td>
-          </table>
+            <table style="width=100%">
+                <tr style="vertical-align:top">
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/viscoelastic/base_lava.gif" width="350px"/>
+                    </td>
+                    <td align="middle" style="padding-right: 80px">
+                        <img src="images/final_renders_base/viscoelastic/lava_slanted.gif" width="350px"/>
+                    </td>
+                    <td align="middle">
+                        <img src="images/final_renders_base/viscoelastic/base_lava2.gif" width="350px"/>
+                    </td>
+            </table>
         </div>
         <br>
 
-        <h3>Soft & Rigid & Contort Collisions</h3>
-        <br>
-        <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/base_collision/hyper_eslastc.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/base_collision/elastic_rigid.gif" width="350px" />
-              </td>
-              <td align="middle">
-                <img src="images/base_collision/rigid_brittle.gif" width="350px" />
-              </td>
-          </table>
-        </div>
-        <br>
-        <br>
-        <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/base_collision/all_five_hyper.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/base_collision/all_five_snow.gif" width="350px" />
-              </td>
-              <td align="middle">
-                <img src="images/base_collision/all_five_brittle.gif" width="350px" />
-              </td>
-          </table>
-        </div>
-        <br>
+        <h4 style="color: #A864FD; display:inline-block;">Disc
+            <h4 style="color: #29CDFF; display:inline-block;">rete P
+                <h4 style="color: #78FF44; display:inline-block;">art
+                    <h4 style="color: #FF718D; display:inline-block;">icl<h4
+                            style="color: #960881; display:inline-block;">es <a href="https://youtu.be/ItDuMqX5vdM?t=15"
+                                                                                target="_blank">(Confetti)</a></h4> <h4
+                            style="display:inline-block;">[New]</h4>
+                        <div align="center">
+                            <table style="width=100%">
+                                <tr style="vertical-align:top">
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/final_renders_base/viscoelastic/base_confetii.gif"
+                                             width="350px"/>
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/final_renders_base/viscoelastic/confetii_slanted.gif"
+                                             width="350px"/>
+                                    </td>
+                                    <td align="middle">
+                                        <img src="images/final_renders_base/viscoelastic/base_confetii2.gif"
+                                             width="350px"/>
+                                    </td>
+                            </table>
+                        </div>
+                        <br>
 
-        <h3>Soft & Rigid & Contort & Viscoelastic Mixing</h3>
-        <br>
-        <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/base_collision/water_mix.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/base_collision/mud_mix.gif" width="350px" />
-              </td>
-              <td align="middle">
-                <img src="images/base_collision/honey_mix.gif" width="350px" />
-              </td>
-          </table>
-        </div>
-        <br>
+                        <h3>Soft & Rigid & Contort Collisions</h3>
+                        <br>
+                        <div align="center">
+                            <table style="width=100%">
+                                <tr style="vertical-align:top">
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/base_collision/hyper_eslastc.gif" width="350px"/>
+                                        <figcaption>Elastic (red) and hyperelastic (green)</figcaption>
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/base_collision/elastic_rigid.gif" width="350px"/>
+                                        <figcaption>Elastic (red) and rigidelastic (yellow)</figcaption>
+                                    </td>
+                                    <td align="middle">
+                                        <img src="images/base_collision/rigid_brittle.gif" width="350px"/>
+                                        <figcaption>Rigidelastic (yellow) and brittle (brown)</figcaption>
+                                    </td>
+                            </table>
+                        </div>
+                        <br>
+                        <br>
+                        <div align="center">
+                            <table style="width=100%">
+                                <tr style="vertical-align:top">
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/base_collision/all_five_hyper.gif" width="350px"/>
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/base_collision/all_five_snow.gif" width="350px"/>
+                                    </td>
+                                    <td align="middle">
+                                        <img src="images/base_collision/all_five_brittle.gif" width="350px"/>
+                                    </td>
+                            </table>
+                        </div>
+                        <br>
 
-        <h3>Viscoelastic Mixing</h3>
-        <br>
-        <div align="center">
-          <table style="width=100%">
-              <tr style="vertical-align:top">
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/base_collision/honey_water_mix.gif" width="350px" />
-              </td>
-              <td align="middle" style="padding-right: 80px">
-                <img src="images/base_collision/water_lava_mix.gif" width="350px" />
-              </td>
-              <td align="middle">
-                <img src="images/base_collision/lava_mud_mix.gif" width="350px" />
-              </td>
-          </table>
-        </div>
-        <br>
+                        <h3>Soft & Rigid & Contort & Viscoelastic Mixing</h3>
+                        <br>
+                        <div align="center">
+                            <table style="width=100%">
+                                <tr style="vertical-align:top">
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/base_collision/water_mix.gif" width="350px"/>
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/base_collision/mud_mix.gif" width="350px"/>
+                                    </td>
+                                    <td align="middle">
+                                        <img src="images/base_collision/honey_mix.gif" width="350px"/>
+                                    </td>
+                            </table>
+                        </div>
+                        <br>
+
+                        <h3>Viscoelastic Mixing</h3>
+                        <br>
+                        <div align="center">
+                            <table style="width=100%">
+                                <tr style="vertical-align:top">
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/base_collision/honey_water_mix.gif" width="350px"/>
+                                        <figcaption>Honey and water. Notice how the honey mixes into the water but does
+                                            not completely dissolve yet.
+                                        </figcaption>
+                                    </td>
+                                    <td align="middle" style="padding-right: 80px">
+                                        <img src="images/base_collision/water_lava_mix.gif" width="350px"/>
+                                        <figcaption>Lava and water. Notice how the lava coagulates in the water and does
+                                            not mix.
+                                        </figcaption>
+                                    </td>
+                                    <td align="middle">
+                                        <img src="images/base_collision/lava_mud_mix.gif" width="350px"/>
+                                        <figcaption>Lava and mud. Notice how they do not mix and simply overlap in
+                                            layers.
+                                        </figcaption>
+                                    </td>
+                            </table>
+                        </div>
+                        <br>
 
 
-        <h1>Contributions</h1>
-        <br>
-        <h3>Teresa</h3>
-        <p>Along with reading, research, and learning how to use the MLS-MPM engine, I helped add support for rigid-elastic and coagulate materials. I also worked on a few parts in the proposal, milestone, and final reports, and I contributed to the presentation slides and video voice overs. </p>
-        <h3>Stephen</h3>
-        <p> I researched papers regarding MPM and MLS-MPM, as well as sections of an MPM course. Additionally, on a technical basis, I implemented the initial iteration for the lava material. Lastly, I helped to write on the technical implementation and the physics driving the simulation, such as some of the constants and governing equations.</p>
-        <h3>Nikki</h3>
-        <p> I helped read, do general research, and experiment with existing code in order to settle on our final project idea. Then, I helped debug and add support for rigidelastic and coagulate material types. I also contributed to the milestone and final write-ups by doing more research and reviewing, creating presentation slides, writing scripts, and doing video voice overs. </p>
-        <h3>Brandon</h3>
-        <p>I implemented the hyperelastic, brittle, high-viscosity, shear resistant, and discrete particle material types. I also helped in debugging the coagulate material type. I also processed all the renders on my machine as we found that to be the most efficient for rendering time. I also create the conception of many renderings on display on our milestone and final showcase webpages. I then edited and compiled the voice overs for the milestone and final video summaries. Finally, I helped in creating a general direction for our project to go in.  </p>
-        <br>
+                        <h1>Contributions</h1>
+                        <br>
+                        <h3>Brandon Illescas</h3>
+                        <p>I implemented the hyperelastic, brittle, high-viscosity, shear resistant, and discrete
+                            particle material types. I also helped in debugging the coagulate material type. I also
+                            processed all the renders on my machine as we found that to be the most efficient for
+                            rendering time. I also create the conception of many renderings on display on our milestone
+                            and final showcase webpages. I then edited and compiled the voice overs for the milestone
+                            and final video summaries. Finally, I helped in creating a general direction for our project
+                            to go in. </p>
+                        <h3>Stephen Lin</h3>
+                        <p> I researched papers regarding MPM and MLS-MPM, as well as sections of an MPM course.
+                            Additionally, on a technical basis, I implemented the initial iteration for the lava
+                            material. Lastly, I helped to write on the technical implementation and the physics driving
+                            the simulation, such as some of the constants and governing equations.</p>
+                        <h3>Nikki Suppala</h3>
+                        <p> I helped read, do general research, and experiment with existing code in order to settle on
+                            our final project idea. Then, I helped debug and add support for rigidelastic and coagulate
+                            material types. I also contributed to the milestone and final write-ups by doing more
+                            research and reviewing, creating presentation slides, writing scripts, and doing video voice
+                            overs. </p>
+                        <h3>Teresa Yang</h3>
+                        <p>Along with reading, research, and learning how to use the MLS-MPM engine, I helped add
+                            support for rigid-elastic and coagulate materials. I also worked on a few parts in the
+                            proposal, milestone, and final reports, and I contributed to the presentation slides and
+                            video voice overs. </p>
+                        <br>
 
-        <h1>References</h1>
-        <br>
-        <ul>
-          <li>Web
-              <ul>
-                  <li><a href="https://en.wikipedia.org/wiki/Material_point_method" target="_blank">Material point method</a></li>
-                  <li><a href="https://www.seas.upenn.edu/~cffjiang/research/mpmcourse/mpmcourse.pdf" target="_blank">MPM course</a></li>
-              </ul>
-          </li>
-          <li>Papers
-              <ul>
-                  <li><a href="https://www.math.ucla.edu/~jteran/papers/HGGWJT19.pdf" target="_blank">A Hybrid Material Point Method for Frictional Contact with Diverse Materials</a></li>
-                  <li><a href="https://escholarship.org/content/qt0379b41t/qt0379b41t.pdf?t=qaog8c&v=lg" target="_blank">The Material Point Method for Solid and Fluid Simulation</a></li>
-                  <li><a href="https://www.math.ucla.edu/~jteran/papers/JGT17.pdf" target="_blank">Anisotropic Elastoplasticity for Cloth, Knit and Hair Frictional Contact</a></li>
-                  <li><a href="https://yzhu.io/publication/mpmmls2018siggraph/paper.pdf" target="_blank">A Moving Least Squares Material Point Method with Displacement Discontinuity and Two-Way Rigid Body Coupling</a></li>
-                  <li><a href="https://www.math.ucla.edu/~jteran/papers/JSSTS15.pdf" target="_blank">The Affine Particle-In-Cell Method</a></li>
-              </ul>
-          </li>
-          <li>Primitive MLS-MPM Engine
-              <ul>
-                  <li><a href="https://github.com/taichi-dev/taichi_elements" target="_blank">Taichi Elements</a></li>
-              </ul>
-          </li>
-          <li>MLS-MPM notes
-            <ul>
-                <li><a href="https://github.com/yuanming-hu/taichi_mpm/releases/download/SIGGRAPH2018/mls-mpm-cpic-slides-with-notes.pdf" target="_blank">PDF Slides with Notes</a></li>
-            </ul>
-        </li>
-  
-      </ul>
-      <br>
+                        <h1>References</h1>
+                        <br>
+                        <ul>
+                            <li>Web
+                                <ul>
+                                    <li><a href="https://en.wikipedia.org/wiki/Material_point_method" target="_blank">Material
+                                        point method</a></li>
+                                    <li><a href="https://www.seas.upenn.edu/~cffjiang/research/mpmcourse/mpmcourse.pdf"
+                                           target="_blank">MPM course</a></li>
+                                </ul>
+                            </li>
+                            <li>Papers
+                                <ul>
+                                    <li><a href="https://www.math.ucla.edu/~jteran/papers/HGGWJT19.pdf" target="_blank">A
+                                        Hybrid Material Point Method for Frictional Contact with Diverse Materials</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://escholarship.org/content/qt0379b41t/qt0379b41t.pdf?t=qaog8c&v=lg"
+                                           target="_blank">The Material Point Method for Solid and Fluid Simulation</a>
+                                    </li>
+                                    <li><a href="https://www.math.ucla.edu/~jteran/papers/JGT17.pdf" target="_blank">Anisotropic
+                                        Elastoplasticity for Cloth, Knit and Hair Frictional Contact</a></li>
+                                    <li><a href="https://yzhu.io/publication/mpmmls2018siggraph/paper.pdf"
+                                           target="_blank">A Moving Least Squares Material Point Method with
+                                        Displacement Discontinuity and Two-Way Rigid Body Coupling</a></li>
+                                    <li><a href="https://www.math.ucla.edu/~jteran/papers/JSSTS15.pdf" target="_blank">The
+                                        Affine Particle-In-Cell Method</a></li>
+                                </ul>
+                            </li>
+                            <li>Primitive MLS-MPM Engine
+                                <ul>
+                                    <li><a href="https://github.com/taichi-dev/taichi_elements" target="_blank">Taichi
+                                        Elements</a></li>
+                                </ul>
+                            </li>
+                            <li>MLS-MPM notes
+                                <ul>
+                                    <li>
+                                        <a href="https://github.com/yuanming-hu/taichi_mpm/releases/download/SIGGRAPH2018/mls-mpm-cpic-slides-with-notes.pdf"
+                                           target="_blank">PDF Slides with Notes</a></li>
+                                </ul>
+                            </li>
 
-       
+                        </ul>
+                        <br>
+
+
 </div>
 </body>
 </html>
