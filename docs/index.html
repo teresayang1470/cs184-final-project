@@ -82,30 +82,27 @@
         <br>
 
         <p>The material point method (<a href="proposal.html#MPM" target="_blank">MPM</a>) is a robust numerical and
-            spatial discretization method used for simulating continuum material types and decoupling interactions. It
+            spatial discretization method used for simulating continuum material types and multi-material interactions. It
             is a widely used hybrid Eulerian-Lagrangian method (<a href="proposal.html#MPM2" target="_blank">uses both
-                particles and grids</a>) that has since diverged into many many variations and optimizations since its
+                particles and grids</a>) that has diverged into many variations with optimizations since its
             original conception in the early 1990s at the University of New Mexico.
         </p>
 
-        <p> One of these variants incorporates moving least squares (MLS) interpolation for the MPM discretization.
+        <p> One of these variants incorporates moving least squares (MLS) interpolation as the MPM discretization method.
             MLS-MPM improves the efficiency and accuracy of how traditional MPM algorithms project continuous quantities
-            into discrete particles and nodes and is
-            actually one of the simpler MPM methods to implement. One particular engine that is currently in the early
-            stages of development using the Taichi programming language is Taichi Elements’ High-Performance
-            Multi-Material Continuum Physics Engine. As the name suggests, it supports interactions between multiple
-            continuum materials but, in its current basic form, only supports primitive types such as low-viscosity,
-            grain, and elastic materials.
+            into discrete particles and nodes, and it is actually the simplest MPM implementation we've seen.
+            One particular engine that is currently in the early stages of development using the Taichi programming
+            language is Taichi Elements’ High-Performance Multi-Material Continuum Physics Engine. As the name suggests,
+            it supports interactions between multiple continuum materials but, in its current basic form, only supports a few
+            primitive types such as low-viscosity, grain, and elastic materials.
         </p>
 
         <p>
-            For our project, we have taken the liberty of expanding the unfinished engine by adding new materials types
-            such as hyperelastic, rigidelastic, and brittle continuum materials and widening support for more
-            viscoelastic fluid types such as high-viscosity, shear resistant, coagulate, and discrete particle
-            viscoelastic continuum materials. We accomplished these tasks primarily by modifying various physical
-            parameters in the algorithmic math and implementing the proper edge cases for various material types. The
-            result is a much more robust and capable engine that accurately simulates multi-material coupling and
-            decoupling collisions and mixtures.
+            For our project, we have taken the liberty of expanding the unfinished engine by widening support for elastic and viscoelastic particles.
+            We have added implementations for hyperelastic, rigidelastic, and brittle elastic materials as well as high-viscosity,
+            shear resistant, coagulate, and discrete particle viscoelastic materials. We accomplished these tasks primarily by modifying various physical
+            parameters in the algorithmic math and implementing the proper edge cases for various material types and multi-material interplay.
+            The result is a much more compelling and capable engine that accurately simulates multi-material mixtures and coupling/decoupling collisions.
         </p>
         <br>
 
