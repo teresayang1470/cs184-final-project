@@ -259,9 +259,9 @@ class MPMSolver:
                 for d in ti.static(range(self.dim)):
                     new_sig = sig[d, d]
                     if self.material[p] == self.material_snow:  # Snow
-                        new_sig = min(max(sig[d, d], 1 - 2.5e-2),1 + 4.5e-3)  # Plasticity
+                        new_sig = min(max(sig[d, d], 1 - 2.5e-2),1 + 4.5e-3)  # Plasticity snow
                     if self.material[p] == self.material_bread: 
-                        new_sig = min(max(sig[d, d], 1 - 8e-2), 1 + 15.0e-3)  # Plasticity
+                        new_sig = min(max(sig[d, d], 1 - 8e-2), 1 + 15.0e-3)  # Plasticity brittle
                     self.Jp[p] *= sig[d, d] / new_sig
                     sig[d, d] = new_sig
                     J *= new_sig
