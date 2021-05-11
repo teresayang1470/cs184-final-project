@@ -93,7 +93,7 @@
       <h3>MLS-MPM Overview & Implementation</h3>
       <br>
 
-      <p>The Taichi Elements’ MLS-MPM solver follows six basic steps and represents some subtle differences compared to traditional MPM. Nonetheless, in brief, the steps as follows (more detailed descriptions are in the original paper by Hu et al.:</p>
+      <p>The Taichi Elements’ MLS-MPM engine follows six basic steps and represents some subtle differences compared to traditional MPM. Nonetheless, in brief, the steps as follows (more detailed descriptions are in the original paper by Hu et al.:</p>
 
       <ul>
         <li>1. Apply the APIC (Affine Particle In-Cell) technique, introduced by C. Jiang et al. to transfer momentum from the Lagrangian particles to the Eulerian grid.</li>
@@ -106,7 +106,7 @@
 
       <p>In our project, we focused on updating the governing equations where needed, in addition to the characteristic constants for each material. This allowed us to use the flexibility and general nature of the graphics engine to support a variety of substances while keeping in mind their physical properties. Below, we describe the major constants and important equations that supported our implementation.</p>
 
-      <p>Young’s modulus ($E$) measures tensile elasticity and determines how susceptible a body is to deformation along a given axis when opposing forces are applied along the axis. The Poisson ratio ($\nu$) measures the deformation of an object perpendicular to an applied force. Softer materials generally have higher values of $\nu$. Lamé’s second parameter ($\mu$) describes a similar measure of tendency to shear (along axis coplanar to the applied force) stress. Finally, the first Lamé parameter ($\lambda$) is used to compute the Cauchy stress tensor ($\sigma$), which gives the stress state for a uniformly stressed body In $\texttt{mpm_solver.py}$, these parameters are varied across different materials to simulate various hard and soft bodies; since the constants affect the stresses and deformation, they are also used compute momentum changes and therefore affect the overall simulation.</p>
+      <p>Young’s modulus ($E$) measures tensile elasticity and determines how susceptible a body is to deformation along a given axis when opposing forces are applied along the axis. The Poisson ratio ($\nu$) measures the deformation of an object perpendicular to an applied force. Softer materials generally have higher values of $\nu$. Lamé’s second parameter ($\mu$) describes a similar measure of tendency to shear (along axis coplanar to the applied force) stress. Finally, the first Lamé parameter ($\lambda$) is used to compute the Cauchy stress tensor ($\sigma$), which gives the stress state for a uniformly stressed body In <a href="https://github.com/teresayang1470/cs184-final-project/blob/main/mpm_taichi_engine/engine/mpm_solver.py" target="_blank">$\texttt{mpm_solver.py}$</a>, these parameters are varied across different materials to simulate various hard and soft bodies; since the constants affect the stresses and deformation, they are also used compute momentum changes and therefore affect the overall simulation.</p>
 
       <p> 
         $$\tag{2} \lambda = \frac{E \nu}{(1 + \nu)(1 - 2 \nu)}$$
