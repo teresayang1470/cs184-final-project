@@ -59,14 +59,14 @@
 <div>
     <h1>Final Report: Material Point Method</h1>
     <h2>CS184 - Spring 2021</h1>
-        <h4>Brandon Illescas, Stephen Lin, Nikki Suppala, and Teresa Yang</h4>
+        <h4>Teresa Yang, Stephen Lin, Nikki Suppala, and Brandon Illescas</h4>
         <br>
 
         <br>
         <center>
             <p>Final video</p>
             <video width="640" height="360" controls autoplay loop muted>
-                <source src="images/" type="video/mp4"/>
+                <source src="images/finalVideo.mov" type="video/mp4"/>
                 Your browser does not support the video tag.
             </video>
             <p></p>
@@ -257,9 +257,7 @@
         <h4 style="color: #ED553B; display:inline-block;">Elastic <a href="https://youtu.be/nc-N4TJS0JM?t=78"
                                                                      target="_blank">(Egg)</a></h4> <h4
                 style="display:inline-block;">[Included]</h4>
-        <br>
-        <p> Notice the springiness and microtears.</p>
-        <br>
+
         <div align="center">
             <table style="width=100%">
                 <tr style="vertical-align:top">
@@ -280,9 +278,7 @@
         <h4 style="color: #29A55A; display:inline-block;">Hyperelastic <a href="https://youtu.be/4n5AfHYST6E"
                                                                           target="_blank">(Jello)</a></h4> <h4
                 style="display:inline-block;">[New]</h4>
-        <br>
-        <p> Notice how the material tears all the way through and does not bounce back as much.</p>
-        <br>
+ 
         <div align="center">
             <table style="width=100%">
                 <tr style="vertical-align:top">
@@ -303,9 +299,7 @@
         <h4 style="color: #acac0197; display:inline-block;  border: 10px solid bla;
         display: inline-block;">Rigidelastic <a href="https://youtu.be/aY3TrpiUOqE?t=14" target="_blank">(Bouncy
             Ball)</a></h4> <h4 style="display:inline-block;">[New]</h4>
-        <br>
-        <p> Notice how there are practically no microtears and bounciness increases a lot.</p>
-        <br>
+
         <div align="center">
             <table style="width=100%">
                 <tr style="vertical-align:top">
@@ -326,9 +320,6 @@
         <h4 style="color: #bfbfbf; display:inline-block;">Grain <a href="https://youtu.be/AgIhbALz_l4?t=459"
                                                                    target="_blank">(Snow)</a></h4> <h4
                 style="display:inline-block;">[Included]</h4>
-        <br>
-        <p> Notice how the snow particles separate a lot.</p>
-        <br>
         <div align="center">
             <table style="width=100%">
                 <tr style="vertical-align:top">
@@ -350,9 +341,6 @@
         <h4 style="color: #8B4513; display:inline-block;">Brittle <a href="https://youtu.be/6dFjgVB7GxA?t=19"
                                                                      target="_blank">(Twix)</a></h4> <h4
                 style="display:inline-block;">[New]</h4>
-        <br>
-        <p> Notice how the particles do not separate as much.</p>
-        <br>
         <div align="center">
             <table style="width=100%">
                 <tr style="vertical-align:top">
@@ -489,15 +477,15 @@
                                     </td>
                                     <td align="middle" style="padding-right: 80px">
                                         <img src="images/base_collision/hyper_eslastc.gif" width="350px"/>
-                                        <figcaption>Elastic (red) and hyperelastic (green)</figcaption>
+                                        <figcaption></figcaption>
                                     </td>
                                     <td align="middle" style="padding-right: 80px">
                                         <img src="images/base_collision/elastic_rigid.gif" width="350px"/>
-                                        <figcaption>Elastic (red) and rigidelastic (yellow)</figcaption>
+                                        <figcaption></figcaption>
                                     </td>
                                     <td align="middle">
                                         <img src="images/base_collision/rigid_brittle.gif" width="350px"/>
-                                        <figcaption>Rigidelastic (yellow) and brittle (brown)</figcaption>
+                                        <figcaption></figcaption>
                                     </td>
                             </table>
                         </div>
@@ -547,20 +535,17 @@
                                     </td>
                                     <td align="middle" style="padding-right: 80px">
                                         <img src="images/base_collision/honey_water_mix.gif" width="350px"/>
-                                        <figcaption>Honey and water. Notice how the honey mixes into the water but does
-                                            not completely dissolve yet.
+                                        <figcaption>
                                         </figcaption>
                                     </td>
                                     <td align="middle" style="padding-right: 80px">
                                         <img src="images/base_collision/water_lava_mix.gif" width="350px"/>
-                                        <figcaption>Lava and water. Notice how the lava coagulates in the water and does
-                                            not mix.
+                                        <figcaption>
                                         </figcaption>
                                     </td>
                                     <td align="middle">
                                         <img src="images/base_collision/lava_mud_mix.gif" width="350px"/>
-                                        <figcaption>Lava and mud. Notice how they do not mix and simply overlap in
-                                            layers.
+                                        <figcaption>
                                         </figcaption>
                                     </td>
                             </table>
@@ -570,14 +555,11 @@
 
                         <h1>Contributions</h1>
                         <br>
-                        <h3>Brandon Illescas</h3>
-                        <p>I implemented the hyperelastic, brittle, high-viscosity, shear resistant, and discrete
-                            particle material types. I also helped in debugging the coagulate material type. I also
-                            processed all the renders on my machine as we found that to be the most efficient for
-                            rendering time. I also create the conception of many renderings on display on our milestone
-                            and final showcase webpages. I then edited and compiled the voice overs for the milestone
-                            and final video summaries. Finally, I helped in creating a general direction for our project
-                            to go in. </p>
+                        <h3>Teresa Yang</h3>
+                        <p>Along with reading, research, and learning how to use the MLS-MPM engine, I helped add
+                            support for rigid-elastic and coagulate materials. I also worked on a few parts in the
+                            proposal, milestone, and final reports, and I contributed to the presentation slides and
+                            video voice overs. </p>
                         <h3>Stephen Lin</h3>
                         <p> I researched papers regarding MPM and MLS-MPM, as well as sections of an MPM course.
                             Additionally, on a technical basis, I implemented the initial iteration for the lava
@@ -589,12 +571,15 @@
                             material types. I also contributed to the milestone and final write-ups by doing more
                             research and reviewing, creating presentation slides, writing scripts, and doing video voice
                             overs. </p>
-                        <h3>Teresa Yang</h3>
-                        <p>Along with reading, research, and learning how to use the MLS-MPM engine, I helped add
-                            support for rigid-elastic and coagulate materials. I also worked on a few parts in the
-                            proposal, milestone, and final reports, and I contributed to the presentation slides and
-                            video voice overs. </p>
-                        <br>
+         
+                        <h3>Brandon Illescas</h3>
+                        <p>I implemented the hyperelastic, brittle, high-viscosity, shear resistant, and discrete
+                            particle material types. I also helped in debugging the coagulate material type. I also
+                            processed all the renders on my machine as we found that to be the most efficient for
+                            rendering time. I also create the conception of many renderings on display on our milestone
+                            and final showcase webpages. I then edited and compiled the voice overs for the milestone
+                            and final video summaries. Finally, I helped in creating a general direction for our project
+                            to go in. </p>
 
                         <h1>References</h1>
                         <br>
